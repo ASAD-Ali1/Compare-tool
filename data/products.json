@@ -1,0 +1,867 @@
+[
+ {
+  "id": "totw-ancient-mountain-lamb",
+  "name": "Ancient Mountain Canine Recipe with Roasted Lamb",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image1.jpg",
+  "ingredients_list": "lamb;lamb_meal;grain_sorghum;millet;pearl_barley;dried_yeast;canola_oil;mixed_tocopherols;brown_rice;egg_product;roasted_lamb;natural_flavor;tomato_pomace;salmon_oil;quinoa;chia_seed;salt;potassium_chloride;dl_methionine;choline_chloride;taurine;chicory_root;tomatoes;blueberries;raspberries;yucca_schidigera_extract;l_carnitine;lactobacillus_plantarum_fermentation_product;bacillus_subtilis_fermentation_product;lactobacillus_acidophilus_fermentation_product;enterococcus_faecium_fermentation_product;bifidobacterium_animalis_fermentation_product;vitamin_e_supplement;iron_proteinate;zinc_proteinate;copper_proteinate;ferrous_sulfate;zinc_sulfate;manganese_sulfate;copper_sulfate;potassium_iodide;thiamine_mononitrate;manganese_proteinate;ascorbic_acid;vitamin_a_supplement;biotin;niacin;calcium_pantothenate;sodium_selenite;pyridoxine_hydrochloride;vitamin_b12_supplement;riboflavin;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "lamb",
+    "lamb_meal",
+    "roasted_lamb",
+    "egg_product"
+  ],
+  "contains_grain": true,
+  "life_stage": "Adult"
+},
+ {
+  "id": "totw-ancient-prairie-bison-venison",
+  "name": "Ancient Prairie Canine Recipe with Roasted Bison & Roasted Venison",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image2.jpg",
+  "ingredients_list": "water_buffalo;pork;chicken_meal;grain_sorghum;millet;chicken_fat;mixed_tocopherols;pearl_barley;dried_yeast;roasted_bison;roasted_venison;natural_flavor;flaxseed;beef;quinoa;chia_seed;tomato_pomace;salmon_oil;dicalcium_phosphate;calcium_carbonate;salt;potassium_chloride;dl_methionine;choline_chloride;taurine;chicory_root;tomatoes;blueberries;raspberries;yucca_schidigera_extract;l_carnitine;lactobacillus_plantarum_fermentation_product;bacillus_subtilis_fermentation_product;lactobacillus_acidophilus_fermentation_product;enterococcus_faecium_fermentation_product;bifidobacterium_animalis_fermentation_product;vitamin_e_supplement;iron_proteinate;zinc_proteinate;copper_proteinate;ferrous_sulfate;zinc_sulfate;manganese_sulfate;copper_sulfate;potassium_iodide;thiamine_mononitrate;manganese_proteinate;ascorbic_acid;vitamin_a_supplement;biotin;niacin;calcium_pantothenate;sodium_selenite;pyridoxine_hydrochloride;vitamin_b12_supplement;riboflavin;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "water_buffalo",
+    "pork",
+    "chicken_meal",
+    "roasted_bison",
+    "roasted_venison",
+    "beef"
+  ],
+  "contains_grain": true,
+  "life_stage": "Adult"
+}
+,
+{
+  "id": "totw-ancient-stream-salmon",
+  "name": "Ancient Stream Canine Recipe with Smoke-Flavored Salmon",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image3.jpg",
+  "ingredients_list": "salmon;salmon_meal;fish_meal;grain_sorghum;millet;pearl_barley;dried_yeast;canola_oil;mixed_tocopherols;brown_rice;smoke_flavored_salmon;natural_flavor;tomato_pomace;salmon_oil;quinoa;chia_seed;salt;potassium_chloride;dl_methionine;choline_chloride;taurine;chicory_root;tomatoes;blueberries;raspberries;yucca_schidigera_extract;l_carnitine;lactobacillus_plantarum_fermentation_product;bacillus_subtilis_fermentation_product;lactobacillus_acidophilus_fermentation_product;enterococcus_faecium_fermentation_product;bifidobacterium_animalis_fermentation_product;vitamin_e_supplement;iron_proteinate;zinc_proteinate;copper_proteinate;ferrous_sulfate;zinc_sulfate;manganese_sulfate;copper_sulfate;potassium_iodide;thiamine_mononitrate;manganese_proteinate;ascorbic_acid;vitamin_a_supplement;biotin;niacin;calcium_pantothenate;sodium_selenite;pyridoxine_hydrochloride;vitamin_b12_supplement;riboflavin;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "salmon",
+    "salmon_meal",
+    "fish_meal",
+    "smoke_flavored_salmon"
+  ],
+  "contains_grain": true,
+  "life_stage": "Adult"
+},
+{
+  "id": "totw-ancient-wetlands-fowl",
+  "name": "Ancient Wetlands Canine Recipe with Roasted Fowl",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image4.jpg",
+  "ingredients_list": "duck;duck_meal;chicken_meal;grain_sorghum;millet;dried_yeast;pearl_barley;chicken_fat;mixed_tocopherols;egg_product;natural_flavor;roasted_quail;roasted_duck;smoke_flavored_turkey;quinoa;chia_seed;tomato_pomace;salmon_oil;salt;potassium_chloride;dl_methionine;choline_chloride;taurine;chicory_root;tomatoes;blueberries;raspberries;yucca_schidigera_extract;l_carnitine;lactobacillus_plantarum_fermentation_product;bacillus_subtilis_fermentation_product;lactobacillus_acidophilus_fermentation_product;enterococcus_faecium_fermentation_product;bifidobacterium_animalis_fermentation_product;vitamin_e_supplement;iron_proteinate;zinc_proteinate;copper_proteinate;ferrous_sulfate;zinc_sulfate;manganese_sulfate;copper_sulfate;potassium_iodide;thiamine_mononitrate;manganese_proteinate;ascorbic_acid;vitamin_a_supplement;biotin;niacin;calcium_pantothenate;sodium_selenite;pyridoxine_hydrochloride;vitamin_b12_supplement;riboflavin;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "duck",
+    "duck_meal",
+    "chicken_meal",
+    "roasted_quail",
+    "roasted_duck",
+    "smoke_flavored_turkey",
+    "egg_product"
+  ],
+  "contains_grain": true,
+  "life_stage": "Adult"
+},
+{
+  "id": "totw-angus-beef-limited-ingredient",
+  "name": "Angus Beef Limited Ingredient Recipe for Dogs",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image5.jpg",
+  "ingredients_list": "beef;lentils;tomato_pomace;chicken_fat;mixed_tocopherols;natural_flavor;dicalcium_phosphate;salmon_oil;salt;dl_methionine;choline_chloride;taurine;l_carnitine;lactobacillus_plantarum_fermentation_product;bacillus_subtilis_fermentation_product;lactobacillus_acidophilus_fermentation_product;enterococcus_faecium_fermentation_product;bifidobacterium_animalis_fermentation_product;vitamin_e_supplement;iron_proteinate;zinc_proteinate;copper_proteinate;ferrous_sulfate;zinc_sulfate;manganese_sulfate;copper_sulfate;potassium_iodide;thiamine_mononitrate;manganese_proteinate;ascorbic_acid;vitamin_a_supplement;biotin;niacin;calcium_pantothenate;sodium_selenite;pyridoxine_hydrochloride;vitamin_b12_supplement;riboflavin;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "beef"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "totw-appalachian-valley-venison",
+  "name": "Appalachian Valley Small Breed Canine Recipe with Venison & Garbanzo Beans",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image6.jpg",
+  "ingredients_list": "venison;lamb_meal;garbanzo_beans;peas;lentils;pea_protein;canola_oil;mixed_tocopherols;egg_product;duck_meal;pea_flour;tomato_pomace;natural_flavor;fish_meal;salt;choline_chloride;taurine;chicory_root;tomatoes;blueberries;raspberries;yucca_schidigera_extract;lactobacillus_plantarum_fermentation_product;bacillus_subtilis_fermentation_product;lactobacillus_acidophilus_fermentation_product;enterococcus_faecium_fermentation_product;bifidobacterium_animalis_fermentation_product;vitamin_e_supplement;iron_proteinate;zinc_proteinate;copper_proteinate;ferrous_sulfate;zinc_sulfate;manganese_sulfate;copper_sulfate;potassium_iodide;thiamine_mononitrate;manganese_proteinate;ascorbic_acid;vitamin_a_supplement;biotin;niacin;calcium_pantothenate;sodium_selenite;pyridoxine_hydrochloride;vitamin_b12_supplement;riboflavin;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "venison",
+    "lamb_meal",
+    "egg_product",
+    "duck_meal",
+    "fish_meal"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "totw-high-prairie-bison-gravy",
+  "name": "High Prairie Canine Recipe with Bison in Gravy",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image7.jpg",
+  "ingredients_list": "beef;lamb_broth;beef_broth;vegetable_broth;pork_liver;bison;dried_egg_whites;potatoes;peas;egg_product;potato_starch;lamb;venison;fish;guar_gum;sunflower_oil;natural_flavor;sweet_potatoes;tricalcium_phosphate;sodium_phosphate;salt;calcium_carbonate;potassium_chloride;inulin;tomatoes;blueberries;raspberries;taurine;choline_chloride;zinc_amino_acid_chelate;yucca_schidigera_extract;iron_amino_acid_chelate;xanthan_gum;thiamine_mononitrate;roasted_flavor;vitamin_e_supplement;copper_amino_acid_chelate;cobalt_amino_acid_chelate;manganese_amino_acid_chelate;sodium_selenite;niacin;calcium_pantothenate;riboflavin;vitamin_d3_supplement;biotin;vitamin_b12_supplement;potassium_iodide;vitamin_a_supplement;pyridoxine_hydrochloride;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "beef",
+    "pork_liver",
+    "bison",
+    "lamb",
+    "venison",
+    "fish",
+    "egg_product",
+    "dried_egg_whites"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "totw-high-prairie-bison-venison",
+  "name": "High Prairie Canine Recipe with Roasted Bison & Roasted Venison",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image8.jpg",
+  "ingredients_list": "water_buffalo;lamb_meal;chicken_meal;sweet_potatoes;peas;pea_flour;chicken_fat;mixed_tocopherols;egg_product;roasted_bison;roasted_venison;beef;natural_flavor;tomato_pomace;fish_meal;salt;choline_chloride;taurine;chicory_root;tomatoes;blueberries;raspberries;yucca_schidigera_extract;lactobacillus_plantarum_fermentation_product;bacillus_subtilis_fermentation_product;lactobacillus_acidophilus_fermentation_product;enterococcus_faecium_fermentation_product;bifidobacterium_animalis_fermentation_product;vitamin_e_supplement;iron_proteinate;zinc_proteinate;copper_proteinate;ferrous_sulfate;zinc_sulfate;manganese_sulfate;copper_sulfate;potassium_iodide;thiamine_mononitrate;manganese_proteinate;ascorbic_acid;vitamin_a_supplement;biotin;niacin;calcium_pantothenate;sodium_selenite;pyridoxine_hydrochloride;vitamin_b12_supplement;riboflavin;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "water_buffalo",
+    "lamb_meal",
+    "chicken_meal",
+    "roasted_bison",
+    "roasted_venison",
+    "beef",
+    "egg_product",
+    "fish_meal"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "totw-high-prairie-puppy-bison-venison",
+  "name": "High Prairie Puppy Recipe with Roasted Bison & Roasted Venison",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image9.jpg",
+  "ingredients_list": "water_buffalo;lamb_meal;sweet_potatoes;egg_product;garbanzo_beans;peas;pea_flour;chicken_fat;mixed_tocopherols;dried_yeast;roasted_bison;roasted_venison;beef;tomato_pomace;natural_flavor;flaxseed;fish_meal;salmon_oil;salt;dl_methionine;potassium_chloride;choline_chloride;taurine;chicory_root;yucca_schidigera_extract;tomatoes;blueberries;raspberries;lactobacillus_plantarum_fermentation_product;bacillus_subtilis_fermentation_product;lactobacillus_acidophilus_fermentation_product;enterococcus_faecium_fermentation_product;bifidobacterium_animalis_fermentation_product;vitamin_e_supplement;iron_proteinate;zinc_proteinate;copper_proteinate;ferrous_sulfate;zinc_sulfate;manganese_sulfate;copper_sulfate;potassium_iodide;thiamine_mononitrate;manganese_proteinate;ascorbic_acid;vitamin_a_supplement;biotin;niacin;calcium_pantothenate;sodium_selenite;pyridoxine_hydrochloride;vitamin_b12_supplement;riboflavin;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "water_buffalo",
+    "lamb_meal",
+    "roasted_bison",
+    "roasted_venison",
+    "beef",
+    "egg_product",
+    "fish_meal",
+    "salmon_oil"
+  ],
+  "contains_grain": false,
+  "life_stage": "Puppy"
+},
+{
+  "id": "totw-pacific-stream-salmon-gravy",
+  "name": "Pacific Stream Canine Recipe with Salmon in Gravy",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image10.jpg",
+  "ingredients_list": "whitefish;fish_broth;turkey_broth;water;turkey;turkey_liver;dried_egg_whites;salmon;ground_peas;potatoes;peas;potato_starch;guar_gum;natural_flavor;salt;pea_protein;sodium_phosphate;tricalcium_phosphate;potassium_chloride;inulin;tomatoes;sweet_potatoes;blueberries;raspberries;calcium_carbonate;taurine;choline_chloride;yucca_schidigera_extract;zinc_amino_acid_chelate;iron_amino_acid_chelate;xanthan_gum;thiamine_mononitrate;vitamin_e_supplement;copper_amino_acid_chelate;manganese_amino_acid_chelate;sodium_selenite;cobalt_amino_acid_chelate;niacin;calcium_pantothenate;vitamin_a_supplement;riboflavin;biotin;vitamin_b12_supplement;potassium_iodide;pyridoxine_hydrochloride;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "whitefish",
+    "turkey",
+    "turkey_liver",
+    "salmon",
+    "dried_egg_whites"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "totw-pacific-stream-smoked-salmon",
+  "name": "Pacific Stream Canine Recipe with Smoke-Flavored Salmon",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image11.jpg",
+  "ingredients_list": "salmon;fish_meal;sweet_potatoes;peas;pea_flour;lentils;canola_oil;mixed_tocopherols;salmon_meal;smoke_flavored_salmon;natural_flavor;tomato_pomace;salt;dl_methionine;choline_chloride;taurine;chicory_root;tomatoes;blueberries;raspberries;yucca_schidigera_extract;lactobacillus_plantarum_fermentation_product;bacillus_subtilis_fermentation_product;lactobacillus_acidophilus_fermentation_product;enterococcus_faecium_fermentation_product;bifidobacterium_animalis_fermentation_product;vitamin_e_supplement;iron_proteinate;zinc_proteinate;copper_proteinate;ferrous_sulfate;zinc_sulfate;manganese_sulfate;copper_sulfate;potassium_iodide;thiamine_mononitrate;manganese_proteinate;ascorbic_acid;vitamin_a_supplement;biotin;niacin;calcium_pantothenate;sodium_selenite;pyridoxine_hydrochloride;vitamin_b12_supplement;riboflavin;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "salmon",
+    "fish_meal",
+    "salmon_meal",
+    "smoke_flavored_salmon"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "totw-pacific-stream-puppy-smoked-salmon",
+  "name": "Pacific Stream Puppy Recipe with Smoke-Flavored Salmon",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image12.jpg",
+  "ingredients_list": "salmon;fish_meal;sweet_potatoes;peas;pea_flour;canola_oil;mixed_tocopherols;lentils;salmon_meal;dried_yeast;smoke_flavored_salmon;natural_flavor;salmon_oil;tomato_pomace;dicalcium_phosphate;salt;potassium_chloride;dl_methionine;choline_chloride;taurine;chicory_root;yucca_schidigera_extract;tomatoes;blueberries;raspberries;lactobacillus_plantarum_fermentation_product;bacillus_subtilis_fermentation_product;lactobacillus_acidophilus_fermentation_product;enterococcus_faecium_fermentation_product;bifidobacterium_animalis_fermentation_product;vitamin_e_supplement;iron_proteinate;zinc_proteinate;copper_proteinate;ferrous_sulfate;zinc_sulfate;manganese_sulfate;copper_sulfate;potassium_iodide;thiamine_mononitrate;manganese_proteinate;ascorbic_acid;vitamin_a_supplement;biotin;niacin;calcium_pantothenate;sodium_selenite;pyridoxine_hydrochloride;vitamin_b12_supplement;riboflavin;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "salmon",
+    "fish_meal",
+    "salmon_meal",
+    "smoke_flavored_salmon",
+    "salmon_oil"
+  ],
+  "contains_grain": false,
+  "life_stage": "Puppy"
+}
+,
+{
+  "id": "totw-pine-forest-venison-legumes",
+  "name": "Pine Forest Canine Recipe with Venison & Legumes",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image13.jpg",
+  "ingredients_list": "venison;lamb_meal;garbanzo_beans;peas;lentils;pea_flour;dried_yeast;egg_product;canola_oil;mixed_tocopherols;tomato_pomace;natural_flavor;fish_meal;salmon_oil;salt;dl_methionine;choline_chloride;taurine;chicory_root;tomatoes;blueberries;raspberries;yucca_schidigera_extract;lactobacillus_plantarum_fermentation_product;bacillus_subtilis_fermentation_product;lactobacillus_acidophilus_fermentation_product;enterococcus_faecium_fermentation_product;bifidobacterium_animalis_fermentation_product;vitamin_e_supplement;iron_proteinate;zinc_proteinate;copper_proteinate;ferrous_sulfate;zinc_sulfate;manganese_sulfate;copper_sulfate;potassium_iodide;thiamine_mononitrate;manganese_proteinate;ascorbic_acid;vitamin_a_supplement;biotin;niacin;calcium_pantothenate;sodium_selenite;pyridoxine_hydrochloride;vitamin_b12_supplement;riboflavin;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "venison",
+    "lamb_meal",
+    "egg_product",
+    "fish_meal",
+    "salmon_oil"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "totw-sierra-mountain-lamb-gravy",
+  "name": "Sierra Mountain Canine Recipe with Lamb in Gravy",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image14.jpg",
+  "ingredients_list": "lamb;lamb_broth;beef_broth;vegetable_broth;pork_liver;dried_egg_whites;potatoes;peas;egg_product;potato_starch;guar_gum;natural_flavor;tricalcium_phosphate;sweet_potatoes;sunflower_oil;sodium_phosphate;salt;potassium_chloride;calcium_carbonate;inulin;tomatoes;blueberries;raspberries;taurine;choline_chloride;magnesium_sulfate;zinc_amino_acid_chelate;yucca_schidigera_extract;iron_amino_acid_chelate;menhaden_fish_oil;xanthan_gum;roasted_flavor;vitamin_e_supplement;copper_amino_acid_chelate;cobalt_amino_acid_chelate;manganese_amino_acid_chelate;sodium_selenite;thiamine_mononitrate;niacin;calcium_pantothenate;riboflavin;vitamin_d3_supplement;biotin;vitamin_b12_supplement;vitamin_a_supplement;pyridoxine_hydrochloride;potassium_iodide;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "lamb",
+    "pork_liver",
+    "dried_egg_whites",
+    "egg_product",
+    "menhaden_fish_oil"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "totw-sierra-mountain-roasted-lamb",
+  "name": "Sierra Mountain Canine Recipe with Roasted Lamb",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image15.jpg",
+  "ingredients_list": "lamb;lamb_meal;sweet_potatoes;egg_product;lentils;garbanzo_beans;peas;pea_flour;canola_oil;mixed_tocopherols;dried_yeast;roasted_lamb;tomato_pomace;natural_flavor;salmon_oil;dl_methionine;salt;potassium_chloride;choline_chloride;taurine;chicory_root;tomatoes;blueberries;raspberries;yucca_schidigera_extract;lactobacillus_plantarum_fermentation_product;bacillus_subtilis_fermentation_product;lactobacillus_acidophilus_fermentation_product;enterococcus_faecium_fermentation_product;bifidobacterium_animalis_fermentation_product;vitamin_e_supplement;iron_proteinate;zinc_proteinate;copper_proteinate;ferrous_sulfate;zinc_sulfate;manganese_sulfate;copper_sulfate;potassium_iodide;thiamine_mononitrate;manganese_proteinate;ascorbic_acid;vitamin_a_supplement;biotin;niacin;calcium_pantothenate;sodium_selenite;pyridoxine_hydrochloride;vitamin_b12_supplement;riboflavin;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "lamb",
+    "lamb_meal",
+    "roasted_lamb",
+    "egg_product",
+    "salmon_oil"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "totw-southwest-canyon-beef-gravy",
+  "name": "Southwest Canyon Canine Recipe with Beef in Gravy",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image16.jpg",
+  "ingredients_list": "beef;beef_broth;lamb_broth;vegetable_broth;beef_liver;dried_egg_whites;peas;egg_product;lamb;potato_starch;wild_boar;guar_gum;sunflower_oil;chickpeas;natural_flavor;tricalcium_phosphate;sodium_phosphate;salt;calcium_carbonate;potassium_chloride;inulin;tomatoes;sweet_potatoes;blueberries;raspberries;taurine;choline_chloride;flaxseed_oil;yucca_schidigera_extract;zinc_amino_acid_chelate;iron_amino_acid_chelate;menhaden_fish_oil;xanthan_gum;vitamin_e_supplement;copper_amino_acid_chelate;manganese_amino_acid_chelate;sodium_selenite;thiamine_mononitrate;cobalt_amino_acid_chelate;niacin;calcium_pantothenate;vitamin_a_supplement;riboflavin;biotin;vitamin_b12_supplement;potassium_iodide;pyridoxine_hydrochloride;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "beef",
+    "beef_liver",
+    "lamb",
+    "wild_boar",
+    "dried_egg_whites",
+    "egg_product",
+    "menhaden_fish_oil"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "totw-southwest-canyon-wild-boar",
+  "name": "Southwest Canyon Canine Recipe with Wild Boar",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image17.jpg",
+  "ingredients_list": "beef;peas;garbanzo_beans;lamb_meal;canola_oil;mixed_tocopherols;egg_product;wild_boar;fish_meal;pea_flour;dried_yeast;tomato_pomace;natural_flavor;flaxseed;salmon_oil;salt;choline_chloride;taurine;chicory_root;tomatoes;blueberries;raspberries;yucca_schidigera_extract;lactobacillus_plantarum_fermentation_product;bacillus_subtilis_fermentation_product;lactobacillus_acidophilus_fermentation_product;enterococcus_faecium_fermentation_product;bifidobacterium_animalis_fermentation_product;vitamin_e_supplement;iron_proteinate;zinc_proteinate;copper_proteinate;ferrous_sulfate;zinc_sulfate;manganese_sulfate;copper_sulfate;potassium_iodide;thiamine_mononitrate;manganese_proteinate;ascorbic_acid;vitamin_a_supplement;biotin;niacin;calcium_pantothenate;sodium_selenite;pyridoxine_hydrochloride;vitamin_b12_supplement;riboflavin;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "beef",
+    "lamb_meal",
+    "wild_boar",
+    "egg_product",
+    "fish_meal",
+    "salmon_oil"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "totw-trout-limited-ingredient",
+  "name": "Trout Limited Ingredient Recipe for Dogs",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image18.jpg",
+  "ingredients_list": "trout;lentils;tomato_pomace;chicken_fat;mixed_tocopherols;natural_flavor;dicalcium_phosphate;calcium_carbonate;salmon_oil;salt;dl_methionine;choline_chloride;taurine;l_carnitine;lactobacillus_plantarum_fermentation_product;bacillus_subtilis_fermentation_product;lactobacillus_acidophilus_fermentation_product;enterococcus_faecium_fermentation_product;bifidobacterium_animalis_fermentation_product;vitamin_e_supplement;iron_proteinate;zinc_proteinate;copper_proteinate;ferrous_sulfate;zinc_sulfate;manganese_sulfate;copper_sulfate;potassium_iodide;thiamine_mononitrate;manganese_proteinate;ascorbic_acid;vitamin_a_supplement;biotin;niacin;calcium_pantothenate;sodium_selenite;pyridoxine_hydrochloride;vitamin_b12_supplement;riboflavin;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "trout"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "totw-turkey-limited-ingredient",
+  "name": "Turkey Limited Ingredient Recipe for Dogs",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image19.jpg",
+  "ingredients_list": "turkey;lentils;tomato_pomace;chicken_fat;mixed_tocopherols;natural_flavor;dicalcium_phosphate;salmon_oil;salt;dl_methionine;choline_chloride;taurine;l_carnitine;lactobacillus_plantarum_fermentation_product;bacillus_subtilis_fermentation_product;lactobacillus_acidophilus_fermentation_product;enterococcus_faecium_fermentation_product;bifidobacterium_animalis_fermentation_product;vitamin_e_supplement;iron_proteinate;zinc_proteinate;copper_proteinate;ferrous_sulfate;zinc_sulfate;manganese_sulfate;copper_sulfate;potassium_iodide;thiamine_mononitrate;manganese_proteinate;ascorbic_acid;vitamin_a_supplement;biotin;niacin;calcium_pantothenate;sodium_selenite;pyridoxine_hydrochloride;vitamin_b12_supplement;riboflavin;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "turkey"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "totw-wetlands-fowl-gravy",
+  "name": "Wetlands Canine Recipe with Fowl in Gravy",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image20.jpg",
+  "ingredients_list": "duck;duck_broth;chicken_broth;fish_broth;chicken_liver;chicken;dried_egg_whites;potatoes;peas;egg_product;potato_starch;quail;turkey;fish;guar_gum;natural_flavor;sodium_phosphate;salt;flaxseed_oil;potassium_chloride;inulin;tomatoes;sweet_potatoes;blueberries;raspberries;taurine;choline_chloride;zinc_amino_acid_chelate;yucca_schidigera_extract;iron_amino_acid_chelate;xanthan_gum;thiamine_mononitrate;roasted_flavor;smoke_flavor;vitamin_e_supplement;copper_amino_acid_chelate;manganese_amino_acid_chelate;sodium_selenite;cobalt_amino_acid_chelate;niacin;calcium_pantothenate;vitamin_a_supplement;riboflavin;biotin;vitamin_b12_supplement;potassium_iodide;pyridoxine_hydrochloride;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "duck",
+    "chicken",
+    "chicken_liver",
+    "quail",
+    "turkey",
+    "fish",
+    "dried_egg_whites",
+    "egg_product"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "totw-wetlands-roasted-fowl",
+  "name": "Wetlands Canine Recipe with Roasted Fowl",
+  "brand": "Taste of the Wild",
+  "brand_url": "https://www.tasteofthewildpetfood.com/",
+  "image": "src/image21.jpg",
+  "ingredients_list": "duck;duck_meal;chicken_meal;sweet_potatoes;peas;pea_flour;chicken_fat;mixed_tocopherols;egg_product;natural_flavor;fish_meal;roasted_quail;roasted_duck;smoke_flavored_turkey;tomato_pomace;salt;choline_chloride;taurine;chicory_root;tomatoes;blueberries;raspberries;yucca_schidigera_extract;lactobacillus_plantarum_fermentation_product;bacillus_subtilis_fermentation_product;lactobacillus_acidophilus_fermentation_product;enterococcus_faecium_fermentation_product;bifidobacterium_animalis_fermentation_product;vitamin_e_supplement;iron_proteinate;zinc_proteinate;copper_proteinate;ferrous_sulfate;zinc_sulfate;manganese_sulfate;copper_sulfate;potassium_iodide;thiamine_mononitrate;manganese_proteinate;ascorbic_acid;vitamin_a_supplement;biotin;niacin;calcium_pantothenate;sodium_selenite;pyridoxine_hydrochloride;vitamin_b12_supplement;riboflavin;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "duck",
+    "duck_meal",
+    "chicken_meal",
+    "fish_meal",
+    "roasted_quail",
+    "roasted_duck",
+    "smoke_flavored_turkey",
+    "egg_product"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "4health-wholesome-grains-salmon-potato",
+  "name": "4health with Wholesome Grains Adult Salmon and Potato Formula Dry Dog Food",
+  "brand": "4health",
+  "brand_url": "https://www.4healthpetfood.com/",
+  "image": "src/image22.jpg",
+  "ingredients_list": "salmon;ocean_fish_meal;potatoes;peas;cracked_pearled_barley;pea_flour;egg_product;canola_oil;mixed_tocopherols;tomato_pomace;natural_flavor;flaxseed;salt;dl_methionine;choline_chloride;taurine;dried_chicory_root;glucosamine_hydrochloride;dried_kelp;carrots;apples;tomatoes;blueberries;spinach;cranberries;rosemary_extract;parsley_flake;yucca_schidigera_extract;l_carnitine;chondroitin_sulfate;lactobacillus_plantarum_fermentation_product;bacillus_subtilis_fermentation_product;lactobacillus_acidophilus_fermentation_product;enterococcus_faecium_fermentation_product;bifidobacterium_animalis_fermentation_product;vitamin_e_supplement;iron_proteinate;zinc_proteinate;copper_proteinate;ferrous_sulfate;zinc_sulfate;manganese_sulfate;copper_sulfate;potassium_iodide;thiamine_mononitrate;manganese_proteinate;ascorbic_acid;vitamin_a_supplement;biotin;niacin;calcium_pantothenate;sodium_selenite;pyridoxine_hydrochloride;vitamin_b12_supplement;riboflavin;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "salmon",
+    "ocean_fish_meal",
+    "egg_product"
+  ],
+  "contains_grain": true,
+  "life_stage": "Adult"
+},
+{
+  "id": "purina-alpo-prime-cuts-dry",
+  "name": "Purina ALPO Prime Cuts Dry Dog Food",
+  "brand": "Purina ALPO",
+  "brand_url": "https://www.purina.com/alpo",
+  "image": "src/image23.jpg",
+  "ingredients_list": "ground_yellow_corn;meat_and_bone_meal;soybean_meal;beef_fat;mixed_tocopherols;corn_protein_meal;egg_and_chicken_flavor;natural_flavor;salt;potassium_chloride;choline_chloride;zinc_sulfate;ferrous_sulfate;manganese_sulfate;copper_sulfate;calcium_iodate;sodium_selenite;vitamin_e_supplement;niacin;vitamin_a_supplement;calcium_pantothenate;pyridoxine_hydrochloride;vitamin_b12_supplement;thiamine_mononitrate;vitamin_d3_supplement;riboflavin_supplement;menadione_sodium_bisulfite_complex;folic_acid;biotin;l_tryptophan;l_lysine_monohydrochloride;red_40;yellow_5;calcium_carbonate;blue_2;garlic_oil",
+  "protein": "Protein",
+  "protein_sources": [
+    "meat_and_bone_meal"
+  ],
+  "contains_grain": true,
+  "life_stage": "Adult"
+},
+{
+  "id": "purina-alpo-come-get-it-cookout-classics",
+  "name": "Purina ALPO Come & Get It! Cookout Classics With The Grill-Time Flavors of Beef, Pork & Chicken Adult Dog Food",
+  "brand": "Purina ALPO",
+  "brand_url": "https://www.purina.com/alpo",
+  "image": "src/image24.jpg",
+  "ingredients_list": "ground_yellow_corn;corn_germ_meal;beef_and_bone_meal;soybean_meal;beef_fat;mixed_tocopherols;pork_and_bone_meal;egg_and_chicken_flavor;natural_flavor;corn_protein_meal;salt;potassium_chloride;choline_chloride;zinc_sulfate;ferrous_sulfate;manganese_sulfate;copper_sulfate;calcium_iodate;sodium_selenite;natural_grill_flavor;vitamin_e_supplement;niacin;vitamin_a_supplement;calcium_pantothenate;pyridoxine_hydrochloride;vitamin_b12_supplement;thiamine_mononitrate;vitamin_d3_supplement;riboflavin_supplement;menadione_sodium_bisulfite_complex;folic_acid;biotin;dl_methionine;l_lysine_monohydrochloride;l_tryptophan;red_40;yellow_5;calcium_carbonate;blue_2;yellow_6;garlic_oil",
+  "protein": "Protein",
+  "protein_sources": [
+    "beef_and_bone_meal",
+    "pork_and_bone_meal"
+  ],
+  "contains_grain": true,
+  "life_stage": "Adult"
+},
+{
+  "id": "american-journey-grain-free-salmon-sweet-potato",
+  "name": "American Journey Grain-Free Salmon & Sweet Potato Recipe Dry Dog Food",
+  "brand": "American Journey",
+  "brand_url": "https://www.americanjourney.com/",
+  "image": "src/image25.jpg",
+  "ingredients_list": "deboned_salmon;chicken_meal;turkey_meal;peas;sweet_potatoes;chickpeas;pea_protein;chicken_fat;mixed_tocopherols;dried_plain_beet_pulp;natural_flavor;flaxseed;menhaden_fish_meal;blueberries;carrots;salt;salmon_oil;bacillus_coagulans_fermentation_product;dried_kelp;fructooligosaccharides;vitamin_e_supplement;choline_chloride;taurine;ferrous_sulfate;zinc_proteinate;zinc_sulfate;iron_proteinate;yucca_schidigera_extract;niacin_supplement;copper_sulfate;potassium_chloride;sodium_selenite;calcium_pantothenate;copper_proteinate;riboflavin_supplement;manganese_sulfate;vitamin_a_supplement;manganese_proteinate;thiamine_mononitrate;pyridoxine_hydrochloride;vitamin_b12_supplement;calcium_iodate;vitamin_d3_supplement;folic_acid;rosemary_extract",
+  "protein": "Protein",
+  "protein_sources": [
+    "deboned_salmon",
+    "chicken_meal",
+    "turkey_meal",
+    "menhaden_fish_meal",
+    "salmon_oil"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "american-journey-protein-grains-chicken-brown-rice-vegetables",
+  "name": "American Journey Protein & Grains Chicken, Brown Rice & Vegetables Recipe Dry Dog Food",
+  "brand": "American Journey",
+  "brand_url": "https://www.americanjourney.com/",
+  "image": "src/image26.jpg",
+  "ingredients_list": "deboned_chicken;chicken_meal;brown_rice;rice_bran;peas;barley;natural_flavor;chicken_fat;mixed_tocopherols;flaxseed;suncured_alfalfa_meal;fish_oil;dried_plain_beet_pulp;dried_tomato_pomace;dicalcium_phosphate;salt;calcium_carbonate;dried_egg_product;carrots;sweet_potatoes;oatmeal;taurine;vitamin_e_supplement;niacin_supplement;calcium_pantothenate;riboflavin_supplement;vitamin_a_supplement;thiamine_mononitrate;pyridoxine_hydrochloride;vitamin_b12_supplement;vitamin_d3_supplement;folic_acid;l_threonine;blueberries;cranberries;dried_kelp;choline_chloride;ferrous_sulfate;zinc_proteinate;zinc_sulfate;iron_proteinate;copper_sulfate;sodium_selenite;copper_proteinate;manganese_sulfate;manganese_proteinate;calcium_iodate;mixed_tocopherols;dried_chicory_root;yucca_schidigera_extract;rosemary_extract",
+  "protein": "Protein",
+  "protein_sources": [
+    "deboned_chicken",
+    "chicken_meal",
+    "fish_oil",
+    "dried_egg_product"
+  ],
+  "contains_grain": true,
+  "life_stage": "Adult"
+},
+{
+  "id": "mighty-raw-beef-for-dogs",
+  "name": "Mighty Raw Beef For Dogs",
+  "brand": "Mighty Raw",
+  "brand_url": "https://www.mightyraw.com/",
+  "image": "src/image27.jpg",
+  "ingredients_list": "beef;beef_liver;beef_heart;beef_kidney;ground_beef_bone;fermented_vegetables;carrots;squash;broccoli;duck_eggs;fermented_raw_whey;streptococcus_thermophilus_fermentation_product;lactobacillus_delbrueckii_fermentation_product;lactobacillus_acidophilus_fermentation_product;bifidobacterium_animalis_fermentation_product;leuconostoc_mesenteroides_fermentation_product;lactobacillus_casei_fermentation_product;cod_liver_oil;ghee;salt;organic_parsley;vitamin_e_supplement",
+  "protein": "Protein",
+  "protein_sources": [
+    "beef",
+    "beef_liver",
+    "beef_heart",
+    "beef_kidney",
+    "duck_eggs"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "authority-sensitive-stomach-skin-salmon-rice",
+  "name": "Authority Sensitive Stomach & Skin All Life Stages Dry Dog Food – Salmon & Rice",
+  "brand": "Authority",
+  "brand_url": "https://www.authoritypetfood.com/",
+  "image": "src/image29.jpg",
+  "ingredients_list": "salmon;fish_meal;brown_rice;wheat;wheat_germ_meal;canola_oil;mixed_tocopherols;corn_gluten_meal;soybean_meal;rice_bran;brewers_rice;oatmeal;natural_flavor;flaxseed;calcium_carbonate;fish_oil;salt;sodium_hexametaphosphate;zinc_sulfate;ferrous_sulfate;manganese_sulfate;copper_sulfate;sodium_selenite;vitamin_e_supplement;vitamin_a_supplement;niacin_supplement;calcium_pantothenate;riboflavin_supplement;thiamine_mononitrate;biotin;vitamin_b12_supplement;pyridoxine_hydrochloride;calcium_iodate;folic_acid;choline_chloride;l_threonine;potassium_chloride;taurine;citric_acid;mixed_tocopherols;rosemary_extract",
+  "protein": "Protein",
+  "protein_sources": [
+    "salmon",
+    "fish_meal",
+    "fish_oil"
+  ],
+  "contains_grain": true,
+  "life_stage": "All Life Stages"
+},
+{
+  "id": "rawbble-dry-beef-recipe",
+  "name": "Rawbble Dry Food for Dogs – Beef Recipe",
+  "brand": "Rawbble",
+  "brand_url": "https://www.bixbipet.com/rawbble/",
+  "image": "src/image30.jpg",
+  "ingredients_list": "beef;lentils;whole_yellow_peas;garbanzo_beans;dried_yeast;sunflower_oil;dried_egg_product;natural_flavor;dicalcium_phosphate;coconut_flour;calcium_carbonate;salt;freeze_dried_beef;vitamin_e_supplement;niacin_supplement;calcium_pantothenate;riboflavin_supplement;vitamin_a_supplement;thiamine_mononitrate;pyridoxine_hydrochloride;vitamin_b12_supplement;folic_acid;vitamin_d3_supplement;zinc_proteinate;iron_proteinate;copper_proteinate;manganese_proteinate;sodium_selenite;calcium_iodate;inulin;salmon_oil;taurine;choline_chloride;l_carnitine;mixed_tocopherols;rosemary_extract",
+  "protein": "Protein",
+  "protein_sources": [
+    "beef",
+    "freeze_dried_beef",
+    "dried_egg_product",
+    "salmon_oil"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "canidae-all-life-stages-salmon-ancient-grains",
+  "name": "CANIDAE All Life Stages High Protein Dry Dog Food – Salmon & Ancient Grains Recipe",
+  "brand": "CANIDAE",
+  "brand_url": "https://www.canidae.com/",
+  "image": "src/image31.jpg",
+  "ingredients_list": "salmon;turkey_meal;chicken_meal;chicken_fat;whole_grain_sorghum;millet;pea_protein;dried_yeast;peas;oatmeal;flaxseed;canola_oil;pork_meal;suncured_alfalfa_meal;salmon_oil;natural_flavor;threonine;salt;choline_chloride;potassium_chloride;taurine;vitamin_e_supplement;tryptophan;mixed_tocopherols;ascorbyl_2_polyphosphate;zinc_proteinate;zinc_sulfate;ferrous_sulfate;iron_proteinate;niacin_supplement;copper_sulfate;vitamin_a_supplement;copper_proteinate;menadione_sodium_bisulfite_complex;sodium_selenite;thiamine_mononitrate;calcium_pantothenate;manganese_sulfate;manganese_proteinate;riboflavin_supplement;pyridoxine_hydrochloride;lactobacillus_acidophilus_fermentation_product;vitamin_b12_supplement;calcium_iodate;folic_acid;biotin;lactobacillus_casei_fermentation_product;lactobacillus_plantarum_fermentation_product;green_tea_extract;rosemary_extract",
+  "protein": "Protein",
+  "protein_sources": [
+    "salmon",
+    "turkey_meal",
+    "chicken_meal",
+    "pork_meal"
+  ],
+  "contains_grain": true,
+  "life_stage": "All Life Stages"
+},
+{
+  "id": "sportmix-caninex-performance-beef-formula",
+  "name": "SPORTMiX CanineX Performance Beef Formula Dry Dog Food – Adult Dogs",
+  "brand": "SPORTMiX",
+  "brand_url": "https://www.sportmix.com/",
+  "image": "src/image32.jpg",
+  "ingredients_list": "beef_meal;chicken_fat;mixed_tocopherols;pea_starch;peas;pea_protein;dried_egg;dried_yeast;dried_beet_pulp;flaxseed;l_carnitine;dl_methionine;taurine;glucosamine_hydrochloride;chondroitin_sulfate;salt;potassium_chloride;choline_chloride;vitamin_e_supplement;niacin;calcium_pantothenate;vitamin_a_supplement;riboflavin_supplement;thiamine_mononitrate;pyridoxine_hydrochloride;biotin;vitamin_b12_supplement;vitamin_d3_supplement;folic_acid;zinc_sulfate;ferrous_sulfate;copper_sulfate;manganese_sulfate;zinc_proteinate;copper_proteinate;manganese_proteinate;sodium_selenite;calcium_iodate;cobalt_carbonate;rosemary_extract",
+  "protein": "Protein",
+  "protein_sources": [
+    "beef_meal",
+    "dried_egg"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "easy-chew-lamb-formula-dog-food",
+  "name": "Easy-chew Lamb Formula Dog Food",
+  "brand": "Easy-chew",
+  "brand_url": "",
+  "image": "src/image33.jpg",
+  "ingredients_list": "lamb;lamb_liver;eggs;ground_organic_sprouted_barley_seed;herring;perch;sweet_potato;ground_whole_brown_rice;ground_organic_sprouted_flaxseed;ground_organic_sprouted_lentils;ground_organic_sprouted_peas;potato_starch;apples;carrots;sea_salt;kelp;baking_soda",
+  "protein": "Protein",
+  "protein_sources": [
+    "lamb",
+    "lamb_liver",
+    "eggs",
+    "herring",
+    "perch"
+  ],
+  "contains_grain": true,
+  "life_stage": "Adult"
+},
+{
+  "id": "acana-puppy-recipe-dry-dog-food",
+  "name": "ACANA Puppy Recipe Dry Dog Food",
+  "brand": "ACANA",
+  "brand_url": "https://acana.com/",
+  "image": "src/image34.jpg",
+  "ingredients_list": "chicken;turkey;chicken_meal;whole_green_peas;whole_red_lentils;chicken_fat;turkey_meal;flounder;eggs;fish_oil;whole_yellow_peas;lentil_fiber;chicken_broth;whole_chickpeas;whole_green_lentils;whole_pinto_beans;pea_starch;natural_chicken_flavor;chicken_liver;chicken_heart;salt;vitamin_e_supplement;dried_kelp;zinc_proteinate;mixed_tocopherols;whole_pumpkin;collard_greens;whole_apples;whole_pears;calcium_pantothenate;thiamine_mononitrate;freeze_dried_chicken;freeze_dried_turkey;riboflavin;folic_acid;copper_proteinate;dried_chicory_root;turmeric;sarsaparilla_root;althea_root;rose_hips;juniper_berries;citric_acid;rosemary_extract;lactobacillus_acidophilus_fermentation_product;bifidobacterium_animalis_fermentation_product;lactobacillus_casei_fermentation_product",
+  "protein": "Protein",
+  "protein_sources": [
+    "chicken",
+    "turkey",
+    "flounder",
+    "eggs",
+    "chicken_liver",
+    "chicken_heart",
+    "fish_oil"
+  ],
+  "contains_grain": false,
+  "life_stage": "Puppy"
+},
+{
+  "id": "orijen-amazing-grains-puppy-dry-dog-food",
+  "name": "Orijen Amazing Grains™ Puppy Dry Dog Food",
+  "brand": "Orijen",
+  "brand_url": "https://www.orijenpetfoods.com/",
+  "image": "src/image35.jpg",
+  "ingredients_list": "chicken;turkey;whole_mackerel;whole_herring;salmon;dehydrated_chicken;dehydrated_chicken_liver;oat_groats;millet;chicken_liver;eggs;turkey_giblets;chicken_fat;dehydrated_herring;dehydrated_eggs;natural_chicken_flavor;whole_oats;ground_whole_flaxseed;pollock_oil;quinoa_seed;chia_seed;chicken_heart;inulin;salt;vitamin_e_supplement;whole_pumpkin;whole_butternut_squash;collard_greens;whole_apples;whole_pears;whole_cranberries;dried_kelp;zinc_proteinate;mixed_tocopherols;niacin;thiamine_mononitrate;calcium_pantothenate;pyridoxine_hydrochloride;riboflavin;folic_acid;vitamin_b12_supplement;copper_proteinate;turmeric;sarsaparilla_root;althea_root;rosehips;juniper_berries;citric_acid;rosemary_extract;lactobacillus_acidophilus_fermentation_product;bifidobacterium_animalis_fermentation_product;lactobacillus_casei_fermentation_product",
+  "protein": "Protein",
+  "protein_sources": [
+    "chicken",
+    "turkey",
+    "mackerel",
+    "herring",
+    "salmon",
+    "eggs",
+    "chicken_liver",
+    "turkey_giblets",
+    "chicken_heart"
+  ],
+  "contains_grain": true,
+  "life_stage": "Puppy"
+},
+{
+  "id": "diamond-high-energy-active-adult-sporting-dogs",
+  "name": "Diamond HIGH ENERGY Complete and Balanced Food for Active, Adult Sporting Dogs",
+  "brand": "Diamond",
+  "brand_url": "https://www.diamondpet.com/",
+  "image": "src/image36.jpg",
+  "ingredients_list": "chicken_by_product_meal;whole_grain_ground_corn;wheat_flour;rice_bran;chicken_fat;mixed_tocopherols;meat_meal;dried_yeast;dried_plain_beet_pulp;natural_flavor;salt;potassium_chloride;dl_methionine;choline_chloride;lactobacillus_plantarum_fermentation_product;bacillus_subtilis_fermentation_product;lactobacillus_acidophilus_fermentation_product;enterococcus_faecium_fermentation_product;bifidobacterium_animalis_fermentation_product;vitamin_e_supplement;iron_proteinate;zinc_proteinate;copper_proteinate;ferrous_sulfate;zinc_sulfate;manganese_sulfate;copper_sulfate;potassium_iodide;thiamine_mononitrate;manganese_proteinate;ascorbic_acid;vitamin_a_supplement;biotin;niacin;calcium_pantothenate;sodium_selenite;pyridoxine_hydrochloride;vitamin_b12_supplement;riboflavin;vitamin_d3_supplement;folic_acid",
+  "protein": "Protein",
+  "protein_sources": [
+    "chicken_by_product_meal",
+    "meat_meal"
+  ],
+  "contains_grain": true,
+  "life_stage": "Adult"
+},
+{
+  "id": "great-plains-feast-dry-dog-food",
+  "name": "Great Plains Feast",
+  "brand": "Earthborn Holistic",
+  "brand_url": "https://www.earthbornholisticpetfood.com/",
+  "image": "src/image37.jpg",
+  "ingredients_list": "bison_meal;peas;pea_protein;canola_oil;beef_meal;flaxseed;dried_yeast;tapioca;pea_starch;sweet_potato;pumpkin;dried_egg;salmon_meal;alaska_pollock_meal;whiting_meal;natural_flavor;apples;blueberries;carrots;cranberries;spinach;dried_chicory_root;choline_chloride;salt;potassium_chloride;taurine;l_carnitine;vitamin_e_supplement;ascorbyl_2_polyphosphate;niacin;calcium_pantothenate;thiamine_mononitrate;riboflavin;vitamin_a_supplement;vitamin_b12_supplement;pyridoxine_hydrochloride;vitamin_d3_supplement;biotin;folic_acid;zinc_sulfate;ferrous_sulfate;manganese_sulfate;copper_sulfate;zinc_proteinate;manganese_proteinate;copper_proteinate;calcium_iodate;sodium_selenite;yucca_schidigera_extract;rosemary_extract;enterococcus_faecium_fermentation_product;lactobacillus_casei_fermentation_product;lactobacillus_acidophilus_fermentation_product",
+  "protein": "Protein",
+  "protein_sources": [
+    "bison_meal",
+    "beef_meal",
+    "dried_egg",
+    "salmon_meal",
+    "alaska_pollock_meal",
+    "whiting_meal"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "earthblend-super-premium-natural-dog-food",
+  "name": "Earthblend Super Premium Natural Dog Food™",
+  "brand": "Earthblend",
+  "brand_url": "https://www.earthblendpetfood.com/",
+  "image": "src/image38.jpg",
+  "ingredients_list": "chicken_meal;turkey_meal;oatmeal;barley;millet;chicken_fat;mixed_tocopherols;fish_meal;beet_pulp;carrots;peas;sweet_potato;natural_flavor;sun_cured_alfalfa;brewers_yeast;dried_kelp;flaxseed_oil;potassium_chloride;blueberries;cranberries;spinach;pumpkin;broccoli;choline_chloride;vitamin_e_supplement;vitamin_a_supplement;vitamin_d_supplement;ascorbic_acid;niacin_supplement;calcium_pantothenate;thiamine_mononitrate;biotin;riboflavin_supplement;pyridoxine_hydrochloride;vitamin_b12_supplement;folic_acid;zinc_proteinate;iron_proteinate;zinc_sulfate;iron_sulfate;copper_proteinate;manganese_proteinate;copper_sulfate;manganous_oxide;sodium_selenite;ethylenediamine_dihydroiodide;fennel_seed;parsley;garlic;barley_grass;thyme;burdock_root;red_clover;yucca_schidigera_extract;beta_carotene;lactobacillus_acidophilus_fermentation_product;aspergillus_niger_fermentation_extract;trichoderma_longibrachiatum_fermentation_extract;bacillus_subtilis_fermentation_extract;rosemary_extract",
+  "protein": "Protein",
+  "protein_sources": [
+    "chicken_meal",
+    "turkey_meal",
+    "fish_meal"
+  ],
+  "contains_grain": true,
+  "life_stage": "Adult"
+},
+{
+  "id": "lir-landfowl-recipe",
+  "name": "LIR Landfowl Recipe",
+  "brand": "LIR",
+  "brand_url": "",
+  "image": "src/image39.jpg",
+  "ingredients_list": "turkey;chicken;turkey_meal;chicken_meal;quinoa;pumpkin;chicken_fat;mixed_tocopherols;natural_turkey_flavor;potassium_chloride;salt;choline_chloride;dl_methionine;taurine;vitamin_a_acetate;vitamin_d3_supplement;vitamin_e_supplement;niacin_supplement;calcium_pantothenate;thiamine_mononitrate;pyridoxine_hydrochloride;riboflavin_supplement;folic_acid;vitamin_b12_supplement;kelp;zinc_proteinate;iron_proteinate;copper_proteinate;manganese_proteinate;sodium_selenite;calcium_iodate;l_carnitine",
+  "protein": "Protein",
+  "protein_sources": [
+    "turkey",
+    "chicken",
+    "turkey_meal",
+    "chicken_meal"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "eukanuba-puppy-mixed-grill-chicken-beef-dinner-gravy",
+  "name": "Eukanuba Puppy Mixed Grill Chicken & Beef Dinner in Gravy Canned Dog Food",
+  "brand": "Eukanuba",
+  "brand_url": "https://www.eukanuba.com/",
+  "image": "src/image40.jpg",
+  "ingredients_list": "water;chicken;beef_liver;tomato;beef;carrots;wheat_flour;pork_plasma;peas;egg_product;pork_broth;ground_flaxseed;powdered_cellulose;vegetable_oil;fish_oil;guar_gum;sodium_tripolyphosphate;calcium_carbonate;potassium_chloride;natural_flavors;xanthan_gum;magnesium_oxide;zinc_oxide;ferrous_sulfate;zinc_proteinate;copper_sulfate;manganous_oxide;sodium_selenite;calcium_iodate;dl_alpha_tocopherol_acetate;calcium_pantothenate;thiamine_mononitrate;niacin_supplement;vitamin_a_acetate;biotin;riboflavin_supplement;pyridoxine_hydrochloride;vitamin_b12_supplement;folic_acid;vitamin_d3_supplement",
+  "protein": "Protein",
+  "protein_sources": [
+    "chicken",
+    "beef_liver",
+    "beef",
+    "egg_product",
+    "pork_plasma",
+    "fish_oil"
+  ],
+  "contains_grain": true,
+  "life_stage": "Puppy"
+},
+{
+  "id": "farmina-nd-quinoa-digestion-wet-dog-food",
+  "name": "Farmina N&D Quinoa Dog Digestion Recipe – Wet Food",
+  "brand": "Farmina",
+  "brand_url": "https://www.farmina.com/",
+  "image": "src/image41.jpg",
+  "ingredients_list": "lamb;hydrolyzed_herring;quinoa_seed;herring_oil;artichoke;fennel;fructooligosaccharides;yeast_extract;calcium_carbonate;potassium_chloride;brewers_dried_yeast;chondroitin_sulfate;glucosamine_hydrochloride;vitamin_a_supplement;vitamin_d3_supplement;vitamin_e_supplement;choline_chloride;zinc_methionine_hydroxy_analogue_chelate;manganese_methionine_hydroxy_analogue_chelate;ferrous_glycine_complex;copper_methionine_hydroxy_analogue_chelate;selenium_yeast;dl_methionine;taurine;l_carnitine",
+  "protein": "Protein",
+  "protein_sources": [
+    "lamb",
+    "hydrolyzed_herring"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "fromm-puppy-gold-premium-chicken-recipe",
+  "name": "Fromm Puppy Gold Premium Dry Dog Food – Chicken Recipe",
+  "brand": "Fromm",
+  "brand_url": "https://www.frommfamily.com/",
+  "image": "src/image42.jpg",
+  "ingredients_list": "chicken;chicken_meal;chicken_broth;oatmeal;pearled_barley;menhaden_fish_meal;brown_rice;chicken_fat;dried_tomato_pomace;potatoes;dried_egg_product;whole_oats;salmon_oil;dried_yeast;whole_barley;chicken_liver;cheese;flaxseed;carrots;duck;lamb;sweet_potatoes;salt;celery;dehydrated_alfalfa_meal;choline_chloride;potassium_chloride;vitamin_e_supplement;ascorbic_acid;calcium_carbonate;riboflavin_supplement;niacin_supplement;calcium_pantothenate;vitamin_a_supplement;vitamin_d3_supplement;pyridoxine_hydrochloride;biotin;vitamin_b12_supplement;thiamine_mononitrate;folic_acid;monosodium_phosphate;dl_methionine;dried_chicory_root;taurine;zinc_sulfate;manganese_sulfate;ferrous_sulfate;magnesium_sulfate;zinc_proteinate;iron_proteinate;manganese_proteinate;copper_sulfate;magnesium_proteinate;copper_proteinate;calcium_iodate;chicken_cartilage;sorbic_acid;l_tryptophan;yucca_schidigera_extract;sodium_selenite;lactobacillus_casei_fermentation_product;lactobacillus_reuteri_fermentation_product;lactobacillus_acidophilus_fermentation_product;lactobacillus_plantarum_fermentation_product",
+  "protein": "Protein",
+  "protein_sources": [
+    "chicken",
+    "chicken_meal",
+    "chicken_liver",
+    "duck",
+    "lamb",
+    "menhaden_fish_meal",
+    "salmon_oil",
+    "dried_egg_product"
+  ],
+  "contains_grain": true,
+  "life_stage": "Puppy"
+},
+{
+  "id": "gentle-giants-chicken-quality-of-life-feast",
+  "name": "Gentle Giants Classic 'Quality of Life' Feast – Chicken Dog and Puppy Food",
+  "brand": "Gentle Giants",
+  "brand_url": "https://www.gentlegiantsdogfood.com/",
+  "image": "src/image43.jpg",
+  "ingredients_list": "chicken_meal;pearled_barley;brown_rice;oatmeal;peas;chicken_fat;natural_poultry_flavor;whole_flaxseeds;menhaden_fish_meal;dried_yeast;dried_kelp_meal;dried_egg_product;salt;potassium_chloride;choline_chloride;sweet_potatoes;carrots;spinach;new_zealand_green_mussel;pumpkin;cranberries;blueberries;apples;chicory;ascorbic_acid;vitamin_e_supplement;taurine;ferrous_sulfate;zinc_sulfate;zinc_methionine_complex;copper_sulfate;copper_lysine_complex;manganese_sulfate;manganese_methionine_complex;beta_carotene;yucca_schidigera_extract;niacin_supplement;vitamin_a_supplement;calcium_pantothenate;enterococcus_faecium_fermentation_product;lactobacillus_acidophilus_fermentation_product;lactobacillus_casei_fermentation_product;lactobacillus_plantarum_fermentation_product;biotin;thiamine_mononitrate;riboflavin_supplement;pyridoxine_hydrochloride;vitamin_b12_supplement;vitamin_d3_supplement;folic_acid;sodium_selenite;calcium_iodate;cobalt_carbonate;cobalt_glucoheptonate;mixed_tocopherols;rosemary_extract",
+  "protein": "Protein",
+  "protein_sources": [
+    "chicken_meal",
+    "menhaden_fish_meal",
+    "dried_egg_product"
+  ],
+  "contains_grain": true,
+  "life_stage": "All Life Stages"
+},
+{
+  "id": "chicken-turkey-duck-stew-grain-free-wet-dog-food",
+  "name": "Chicken, Turkey + Duck Stew Grain-Free Wet Dog Food",
+  "brand": "Merrick", 
+  "brand_url": "https://www.merrickpetcare.com/",
+  "image": "src/image44.jpg",
+  "ingredients_list": "deboned_chicken;chicken_broth;turkey_broth;chicken_liver;potatoes;sweet_potatoes;tapioca;deboned_turkey;duck;apples;salmon_oil;tricalcium_phosphate;flaxseed;salt;potassium_chloride;vitamin_a_supplement;vitamin_d3_supplement;vitamin_e_supplement;niacin;d_calcium_pantothenate;thiamine_mononitrate;riboflavin;pyridoxine_hydrochloride;folic_acid;biotin;vitamin_b12_supplement;zinc_proteinate;iron_proteinate;copper_proteinate;manganese_proteinate;calcium_iodate;selenium_yeast;taurine;choline_chloride",
+  "protein": "Protein",
+  "protein_sources": [
+    "deboned_chicken",
+    "deboned_turkey",
+    "duck",
+    "chicken_liver"
+  ],
+  "contains_grain": false,
+  "life_stage": "Adult"
+},
+{
+  "id": "gravy-train-beefy-classic-dry-dog-food",
+  "name": "Gravy Train Beefy Classic Dry Dog Food",
+  "brand": "Gravy Train",
+  "brand_url": "https://www.gravytraindog.com/",
+  "image": "src/image45.jpg",
+  "ingredients_list": "corn;soybean_meal;meat_and_bone_meal;wheat_middlings;animal_fat;bha;bht;whole_wheat;salt;calcium_carbonate;soy_flour;caramel_color;natural_flavor;dl_methionine;choline_chloride;ferrous_sulfate;zinc_oxide;manganous_oxide;copper_sulfate;calcium_iodate;sodium_selenite;vitamin_e_supplement;niacin;d_calcium_pantothenate;vitamin_a_supplement;riboflavin_supplement;thiamine_mononitrate;vitamin_d3_supplement;vitamin_b12_supplement;pyridoxine_hydrochloride;folic_acid;biotin;artificial_flavor;red_40;lactic_acid;yellow_5;blue_2;mixed_tocopherols;rosemary_extract",
+  "protein": "Protein",
+  "protein_sources": [
+    "meat_and_bone_meal",
+    "soybean_meal"
+  ],
+  "contains_grain": true,
+  "life_stage": "Adult"
+},
+{
+  "id": "freeze-dried-raw-turkey-meal-bites",
+  "name": "Freeze-Dried Raw Turkey Meal Bites",
+  "brand": "Instinct",
+  "brand_url": "https://www.instinctpetfood.com/",
+  "image": "src/image46.jpg",
+  "ingredients_list": "turkey;turkey_heart;turkey_liver;herring_oil;mixed_tocopherols;vitamin_e_supplement;ascorbic_acid;iron_amino_acid_complex;zinc_amino_acid_complex;manganese_amino_acid_complex;copper_amino_acid_complex",
+  "protein": "Protein",
+  "protein_sources": [
+    "turkey",
+    "turkey_heart",
+    "turkey_liver",
+    "herring_oil"
+  ],
+  "contains_grain": false,
+  "life_stage": "All Life Stages"
+},
+{
+  "id": "happy-howl-tasty-turkey-feast",
+  "name": "Happy Howl Tasty Turkey Feast 100% Human-Grade Wet Dog Food",
+  "brand": "Happy Howl",
+  "brand_url": "https://www.happyhowl.com/",
+  "image": "src/image47.jpg",
+  "ingredients_list": "turkey_breast;turkey_broth;brown_rice;carrots;green_beans;peas;potato;flour;spinach;blueberries;turkey_liver;tricalcium_phosphate;sea_salt;dextrose;multi_vitamin_blend;potassium_chloride;unsalted_butter;canola_oil;milk;black_pepper;choline_chloride;basil;oregano;parsley;mineral_mix;kelp_powder",
+  "protein": "Protein",
+  "protein_sources": [
+    "turkey_breast",
+    "turkey_liver"
+  ],
+  "contains_grain": true,
+  "life_stage": "Adult"
+},
+{
+  "id": "iams-minichunks-chicken-whole-grains",
+  "name": "IAMS Minichunks Chicken & Whole Grains Dry Dog Food",
+  "brand": "IAMS",
+  "brand_url": "https://www.iams.com/",
+  "image": "src/image48.jpg",
+  "ingredients_list": "chicken;ground_whole_grain_corn;ground_whole_grain_sorghum;chicken_by_product_meal;soybean_meal;dried_plain_beet_pulp;natural_flavors;chicken_fat;mixed_tocopherols;dried_egg_product;flaxseed;caramel_color;carrots;potassium_chloride;fructooligosaccharides;choline_chloride;vitamin_e_supplement;ascorbic_acid;d_calcium_pantothenate;biotin;thiamine_mononitrate;vitamin_b12_supplement;vitamin_a_supplement;niacin;riboflavin_supplement;pyridoxine_hydrochloride;vitamin_d3_supplement;folic_acid;ferrous_sulfate;zinc_oxide;sodium_selenite;manganese_sulfate;copper_sulfate;potassium_iodide;manganous_oxide;citric_acid;mixed_tocopherols;rosemary_extract",
+  "protein": "Protein",
+  "protein_sources": [
+    "chicken",
+    "chicken_by_product_meal",
+    "soybean_meal",
+    "dried_egg_product"
+  ],
+  "contains_grain": true,
+  "life_stage": "Adult"
+},
+{
+  "id": "distinction-canine-beef-recipe-dry-dog-food",
+  "name": "Distinction Canine Beef Recipe Dry Dog Food",
+  "brand": "Nature’s Logic",
+  "brand_url": "https://www.natureslogic.com/",
+  "image": "src/image49.jpg",
+  "ingredients_list": "beef;beef_meal;millet;pork_fat;mixed_tocopherols;yeast_culture;spray_dried_pork_liver;pumpkin_seed_flour;dried_kale;montmorillonite_clay;spray_dried_porcine_plasma;dried_kelp;dried_tomato;dried_chicory_root;dried_apple;dried_carrot;dried_pumpkin;dried_blueberry;dried_apricot;dried_spinach;dried_broccoli;dried_parsley;dried_cranberry;dried_artichoke;dried_mushrooms;lactobacillus_acidophilus_fermentation_product;lactobacillus_casei_fermentation_product;bifidobacterium_bifidum_fermentation_product;enterococcus_faecium_fermentation_product;bacillus_coagulans_fermentation_product;aspergillus_niger_fermentation_extract;aspergillus_oryzae_fermentation_extract;trichoderma_longibrachiatum_fermentation_extract;rosemary_extract",
+  "protein": "Protein",
+  "protein_sources": [
+    "beef",
+    "beef_meal",
+    "pork_liver"
+  ],
+  "contains_grain": true,
+  "life_stage": "All Life Stages"
+},
+{
+  "id": "freeze-dried-raw-protein-beef-mini-nibs",
+  "name": "Freeze-Dried Raw Protein Beef Crunchy Mini Nibs Meal or Mixer Dog Food",
+  "brand": "Vital Essentials",
+  "brand_url": "https://www.vitalessentialsraw.com/",
+  "image": "src/image50.jpg",
+  "ingredients_list": "beef_with_bone;beef_liver;beef_lung;beef_kidney;beef_heart;beef_fat;beef_tripe;fish_oil;mixed_tocopherols;vitamin_e_supplement;zinc_amino_acid_complex;iron_amino_acid_complex;copper_amino_acid_complex;manganese_amino_acid_complex",
+  "protein": "Protein",
+  "protein_sources": [
+    "beef_with_bone",
+    "beef_liver",
+    "beef_lung",
+    "beef_kidney",
+    "beef_heart",
+    "beef_tripe"
+  ],
+  "contains_grain": false,
+  "life_stage": "All Life Stages"
+}
+
+
+]

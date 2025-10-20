@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Compare Tool</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main>
+    <h1>Compare Tool</h1>
+
+    <!-- single input: user types "salmon -pea -soy" -->
+    <input id="query" type="text" placeholder="e.g., salmon -pea -soy" autocomplete="off" />
+
+    <!-- optional helper labels your JS can update -->
+    <div id="meta">
+      <span id="countLabel"></span>
+      <span id="filtersLabel"></span>
+    </div>
+
+    <!-- cards will be inserted here by app.js -->
+    <div id="results"></div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
