@@ -15,7 +15,7 @@ function normalizeToken(raw) {
     .replace(/^_+|_+$/g, "");      // trim leading/trailing _
 }
 
-/* ========= query parsing (groups + AND across groups) ========= */
+/* ========= query parsing (groups = concepts; OR within a group) ========= */
 function simplePluralVariants(tok) {
   const t = normalizeToken(tok);
   const vars = new Set([t]);
@@ -26,7 +26,6 @@ function simplePluralVariants(tok) {
   return [...vars];
 }
 
-/** Expand common synonyms/aliases into canonical tokens users expect */
 function expandSynonyms(tok) {
   const t = normalizeToken(tok);
   const out = new Set([t]);
@@ -49,22 +48,19 @@ function expandSynonyms(tok) {
 
     // protein presence
     protein: ["has_protein", "protein"],
-    "no_protein": ["no_protein"],
+    no_protein: ["no_protein"],
 
-    // brand conveniences
+    // brand
     taste: ["taste", "taste_of_the_wild", "totw"],
     totw: ["taste_of_the_wild"],
   };
 
   if (map[t]) map[t].forEach((x) => out.add(x));
-
-  // add simple plural/singular variants
   simplePluralVariants(t).forEach((v) => out.add(v));
-
   return out;
 }
 
-/** Parse query into include GROUPS (AND across groups, OR within a group) and excludes (any). */
+/** Parse query into include GROUPS (OR inside) + global excludes. */
 function parseQuery(q) {
   const raw = (q || "").trim();
   if (!raw) return { includeGroups: [], excludes: new Set(), labelIncludes: new Set(), labelExcludes: new Set() };
@@ -73,8 +69,6 @@ function parseQuery(q) {
 
   const includeGroups = [];
   const excludes = new Set();
-
-  // for simple labeling in UI
   const labelIncludes = new Set();
   const labelExcludes = new Set();
 
@@ -83,10 +77,9 @@ function parseQuery(q) {
     const isExclude = tok.startsWith("-");
     const base = isExclude ? tok.slice(1) : tok;
 
-    // base group from synonyms + plural variants
     const group = new Set(expandSynonyms(base));
 
-    // try to add a BIGRAM with the next word (e.g., sweet + potatoes -> sweet_potatoes)
+    // bigram support: "sweet potatoes" → "sweet_potatoes"
     if (i + 1 < parts.length && !parts[i + 1].startsWith("-")) {
       const next = parts[i + 1];
       const bigram = normalizeToken(`${base}_${next}`);
@@ -141,7 +134,7 @@ function productTokenSet(product) {
     .filter(Boolean);
   ingList.forEach((ing) => explodeSlug(ing).forEach((t) => T.add(t)));
 
-  // protein sources (full slugs + roots)
+  // protein sources
   (product.protein_sources || []).forEach((ps) =>
     explodeSlug(ps).forEach((t) => T.add(t))
   );
@@ -152,19 +145,18 @@ function productTokenSet(product) {
   if (ls === "adult") T.add("adult");
   if (ls.includes("all life")) {
     T.add("all_life_stages");
-    // searchable as both in your UX
     T.add("puppy");
     T.add("adult");
   }
 
-  // grains → add positive/negative variants
+  // grains
   if (product.contains_grain === true) {
     ["contains_grain", "grain", "grains", "with_grains"].forEach((t) => T.add(t));
   } else if (product.contains_grain === false) {
     ["grain_free", "no_grain", "no_grains", "grainfree"].forEach((t) => T.add(t));
   }
 
-  // protein presence (based on protein_sources length)
+  // protein presence
   if ((product.protein_sources || []).length > 0) {
     T.add("has_protein");
     T.add("protein");
@@ -186,40 +178,39 @@ function hasToken(tokenSet, tok) {
   return false;
 }
 
-/* ========= scoring with AND across groups ========= */
+/* ========= scoring: percentage coverage of your include terms =========
+   - Each word you type creates a "group".
+   - A product gets 1 point if it matches ANY token in that group (OR inside).
+   - Score = matchedGroups / totalGroups * 100.
+   - We DO NOT require full AND to display; we show partial matches, sorted by score.
+*/
 function computeMatch(product, includeGroups, excludes) {
   const T = productTokenSet(product);
 
-  // any excluded present? → hard fail
+  // any excluded token present? hide
   for (const ex of excludes) {
     if (hasToken(T, ex)) {
-      return { match: 0, matchedGroups: 0, neededGroups: includeGroups.length, andOK: false };
+      return { match: 0, matchedGroups: 0, neededGroups: includeGroups.length };
     }
   }
 
   if (includeGroups.length === 0) {
-    return { match: 100, matchedGroups: 0, neededGroups: 0, andOK: true };
+    return { match: 100, matchedGroups: 0, neededGroups: 0 };
   }
 
-  let satisfied = 0;
+  let matchedGroups = 0;
   for (const group of includeGroups) {
-    // group is satisfied if ANY token in the group is present
-    let ok = false;
     for (const g of group) {
-      if (hasToken(T, g)) { ok = true; break; }
+      if (hasToken(T, g)) {
+        matchedGroups += 1;
+        break; // group satisfied
+      }
     }
-    if (ok) satisfied += 1;
   }
 
-  const needed = includeGroups.length;
-  const andOK = satisfied === needed;
-
-  return {
-    match: Math.round((satisfied / needed) * 100),
-    matchedGroups: satisfied,
-    neededGroups: needed,
-    andOK
-  };
+  const neededGroups = includeGroups.length;
+  const pct = Math.round((matchedGroups / neededGroups) * 100);
+  return { match: pct, matchedGroups, neededGroups };
 }
 
 /* ========= labels ========= */
@@ -260,7 +251,9 @@ function makeBadge(k, v, tooltip = "") {
   return b;
 }
 
-function makeCard(p, match) {
+function makeCard(p, res) {
+  const { match, matchedGroups, neededGroups } = res;
+
   const card = document.createElement("article");
   card.className = "card";
 
@@ -290,12 +283,17 @@ function makeCard(p, match) {
   const badges = document.createElement("div");
   badges.className = "badges";
 
-  // Tooltip for protein sources
+  // Tooltip for match explains coverage
+  const matchTip = neededGroups > 0
+    ? `Matched ${matchedGroups} of ${neededGroups} search terms`
+    : `No active filters`;
+  badges.appendChild(makeBadge("Match", `${match}%`, matchTip));
+
+  // Tooltip for protein sources (shown on hover; your CSS positions it on top)
   const proteinSources = (p.protein_sources || []).join(", ");
   const proteinTooltip = proteinSources ? `Sources: ${proteinSources}` : "";
-
-  badges.appendChild(makeBadge("Match", match));
   badges.appendChild(makeBadge("Protein", proteinPresenceLabel(p), proteinTooltip));
+
   badges.appendChild(makeBadge("Grains", yesNoLabel(p.contains_grain)));
   badges.appendChild(makeBadge("Life", lifeStageLabel(p.life_stage)));
 
@@ -310,22 +308,18 @@ function render(products, includeGroups, excludes, labelIncludes, labelExcludes)
 
   const scored = products.map((p) => {
     const res = computeMatch(p, includeGroups, excludes);
-    return { p, ...res };
+    return { p, res };
   });
 
-  // AND semantics:
-  // - if includeGroups.length === 0 → show all non-excluded (match > 0)
-  // - else → show only items satisfying ALL groups
+  // Show:
+  // - If no includes: show all non-excluded (100% by definition)
+  // - If includes: show only items with match > 0 (partial matches allowed), sort by match desc
   const visible = scored
-    .filter((x) => {
-      if (includeGroups.length === 0) return x.match > 0;
-      return x.andOK;
-    })
-    .sort((a, b) => (b.match - a.match) || a.p.name.localeCompare(b.p.name));
+    .filter(({ res }) => (includeGroups.length === 0 ? res.match > 0 : res.match > 0))
+    .sort((a, b) => (b.res.match - a.res.match) || a.p.name.localeCompare(b.p.name));
 
   renderMeta(products.length, visible.length, labelIncludes, labelExcludes);
-
-  visible.forEach(({ p, match }) => container.appendChild(makeCard(p, match)));
+  visible.forEach(({ p, res }) => container.appendChild(makeCard(p, res)));
 }
 
 /* ========= init ========= */
