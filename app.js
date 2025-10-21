@@ -11,62 +11,49 @@ function normalizeToken(raw) {
   return String(raw)
     .toLowerCase()
     .trim()
-    .replace(/[^a-z0-9]+/g, "_")   // spaces & punctuation -> _
-    .replace(/^_+|_+$/g, "");      // trim leading/trailing _
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
 }
 
-/* ========= query parsing (groups = concepts; OR within a group) ========= */
+/* ========= query parsing ========= */
 function simplePluralVariants(tok) {
   const t = normalizeToken(tok);
   const vars = new Set([t]);
-  if (t.endsWith("ies")) vars.add(t.slice(0, -3) + "y");   // berries -> berry
-  if (t.endsWith("oes")) vars.add(t.slice(0, -2));         // potatoes -> potato
-  if (t.endsWith("es"))  vars.add(t.slice(0, -2));         // tomatoes -> tomato
-  if (t.endsWith("s"))   vars.add(t.slice(0, -1));         // beans -> bean
+  if (t.endsWith("ies")) vars.add(t.slice(0, -3) + "y");
+  if (t.endsWith("oes")) vars.add(t.slice(0, -2));
+  if (t.endsWith("es")) vars.add(t.slice(0, -2));
+  if (t.endsWith("s")) vars.add(t.slice(0, -1));
   return [...vars];
 }
 
 function expandSynonyms(tok) {
   const t = normalizeToken(tok);
   const out = new Set([t]);
-
   const map = {
-    // grains
     grainfree: ["grain_free", "no_grain", "no_grains"],
     "grain-free": ["grain_free", "no_grain", "no_grains"],
     no_grain: ["grain_free"],
     no_grains: ["grain_free"],
     with_grains: ["contains_grain", "grain", "grains"],
     grains: ["contains_grain", "grain"],
-    grain: ["contains_grain", "grains"],
+    grain: ["contains_grain", "grains", "with_grains"],
     contains_grain: ["contains_grain"],
-
-    // life stage
-    puppy: ["puppy"],
-    adult: ["adult"],
-    senior: ["senior"],
-
-    // protein presence
     protein: ["has_protein", "protein"],
     no_protein: ["no_protein"],
-
-    // brand
     taste: ["taste", "taste_of_the_wild", "totw"],
     totw: ["taste_of_the_wild"],
   };
-
   if (map[t]) map[t].forEach((x) => out.add(x));
   simplePluralVariants(t).forEach((v) => out.add(v));
   return out;
 }
 
-/** Parse query into include GROUPS (OR inside) + global excludes. */
+/* ========= Parse user query ========= */
 function parseQuery(q) {
   const raw = (q || "").trim();
   if (!raw) return { includeGroups: [], excludes: new Set(), labelIncludes: new Set(), labelExcludes: new Set() };
 
   const parts = raw.split(/\s+/).filter(Boolean);
-
   const includeGroups = [];
   const excludes = new Set();
   const labelIncludes = new Set();
@@ -76,10 +63,9 @@ function parseQuery(q) {
     const tok = parts[i];
     const isExclude = tok.startsWith("-");
     const base = isExclude ? tok.slice(1) : tok;
-
     const group = new Set(expandSynonyms(base));
 
-    // bigram support: "sweet potatoes" → "sweet_potatoes"
+    // bigram support
     if (i + 1 < parts.length && !parts[i + 1].startsWith("-")) {
       const next = parts[i + 1];
       const bigram = normalizeToken(`${base}_${next}`);
@@ -107,7 +93,7 @@ function explodeSlug(slug) {
   if (!s) return [];
   const parts = [s];
   const idx = s.indexOf("_");
-  if (idx > 0) parts.push(s.slice(0, idx)); // "chicken_meal" -> "chicken"
+  if (idx > 0) parts.push(s.slice(0, idx));
   return parts;
 }
 
@@ -118,157 +104,192 @@ function tokensFromString(s) {
     .filter(Boolean);
 }
 
-/** Build a comprehensive token set for a product */
+/* ========= build token set ========= */
 function productTokenSet(product) {
   const T = new Set();
-
-  // id, name, brand
   tokensFromString(product.id).forEach((t) => T.add(t));
   tokensFromString(product.name).forEach((t) => T.add(t));
   tokensFromString(product.brand).forEach((t) => T.add(t));
-
-  // ingredients (full slugs + roots)
   const ingList = String(product.ingredients_list || "")
     .split(";")
     .map((x) => x.trim())
     .filter(Boolean);
   ingList.forEach((ing) => explodeSlug(ing).forEach((t) => T.add(t)));
-
-  // protein sources
-  (product.protein_sources || []).forEach((ps) =>
-    explodeSlug(ps).forEach((t) => T.add(t))
-  );
-
-  // life stage
-  const ls = String(product.life_stage || "").toLowerCase();
-  if (ls.includes("puppy")) T.add("puppy");
-  if (ls === "adult") T.add("adult");
-  if (ls.includes("all life")) {
-    T.add("all_life_stages");
-    T.add("puppy");
-    T.add("adult");
-  }
-
-  // grains
+  (product.protein_sources || []).forEach((ps) => explodeSlug(ps).forEach((t) => T.add(t)));
   if (product.contains_grain === true) {
     ["contains_grain", "grain", "grains", "with_grains"].forEach((t) => T.add(t));
   } else if (product.contains_grain === false) {
     ["grain_free", "no_grain", "no_grains", "grainfree"].forEach((t) => T.add(t));
   }
-
-  // protein presence
   if ((product.protein_sources || []).length > 0) {
     T.add("has_protein");
     T.add("protein");
   } else {
     T.add("no_protein");
   }
-
   return T;
 }
 
-/** fuzzy-ish membership */
+/* ========= compute match % ========= */
 function hasToken(tokenSet, tok) {
   if (tokenSet.has(tok)) return true;
   for (const t of tokenSet) {
-    if (t === tok) return true;
-    if (t.startsWith(tok + "_")) return true; // chicken -> chicken_meal
-    if (t.startsWith(tok)) return true;       // taste -> taste_of_the_wild
+    if (t === tok || t.startsWith(tok + "_") || t.startsWith(tok)) return true;
   }
   return false;
 }
 
-/* ========= scoring: percentage coverage of your include terms =========
-   - Each word you type creates a "group".
-   - A product gets 1 point if it matches ANY token in that group (OR inside).
-   - Score = matchedGroups / totalGroups * 100.
-   - We DO NOT require full AND to display; we show partial matches, sorted by score.
-*/
+/* Special-case exclude matcher so -grain/-grains do NOT exclude grain-free by prefix */
+function hasTokenExclude(tokenSet, tok) {
+  const tkn = normalizeToken(tok);
+
+  // Special-case: avoid excluding grain-free when user types -grain / -grains
+  if (tkn === "grain" || tkn === "grains") {
+    return (
+      tokenSet.has("contains_grain") ||
+      tokenSet.has("grain") ||
+      tokenSet.has("grains") ||
+      tokenSet.has("with_grains")
+    );
+  }
+
+  // For other excludes: exact or root_withSuffix (e.g., -chicken hides chicken_meal)
+  for (const t of tokenSet) {
+    if (t === tkn || t.startsWith(tkn + "_")) return true;
+  }
+  return false;
+}
+
 function computeMatch(product, includeGroups, excludes) {
   const T = productTokenSet(product);
 
-  // any excluded token present? hide
+  // 1️⃣ Exclusions
   for (const ex of excludes) {
-    if (hasToken(T, ex)) {
-      return { match: 0, matchedGroups: 0, neededGroups: includeGroups.length };
+    if (hasTokenExclude(T, ex)) {
+      return { match: 0, sortScore: 0, matchedGroups: 0, neededGroups: includeGroups.length };
     }
   }
 
   if (includeGroups.length === 0) {
-    return { match: 100, matchedGroups: 0, neededGroups: 0 };
+    return { match: 100, sortScore: 100, matchedGroups: 0, neededGroups: 0 };
   }
 
   let matchedGroups = 0;
+  let weight = 0;
+
+  const userWantsGrainFree = includeGroups.some(group =>
+    [...group].some(tok => tok.includes("no_grain") || tok.includes("grainfree") || tok.includes("grain_free"))
+  );
+
+  const proteinTokens = (product.protein_sources || []).map(normalizeToken);
+  const hasGrain = product.contains_grain === true;
+  const grainFree = product.contains_grain === false;
+
+  // 5️⃣ Main logic per include group
   for (const group of includeGroups) {
+    let matched = false;
+
     for (const g of group) {
-      if (hasToken(T, g)) {
-        matchedGroups += 1;
-        break; // group satisfied
+      const tok = normalizeToken(g);
+
+      // Protein
+      if (proteinTokens.some(ps => ps.includes(tok))) {
+        matched = true;
+        weight += 4;
+        break;
+      }
+
+      // Grain-free
+      if ((tok.includes("no_grain") || tok.includes("grainfree") || tok.includes("grain_free")) && grainFree) {
+        matched = true;
+        weight += 3;
+        break;
+      }
+
+      // Grain-positive
+      if (tok.includes("grain") && !tok.includes("no") && hasGrain) {
+        matched = true;
+        weight += 3;
+        break;
+      }
+
+      // Generic
+      if (hasToken(T, tok)) {
+        matched = true;
+        weight += 1;
+        break;
       }
     }
+
+    if (matched) matchedGroups++;
+  }
+
+  // 6️⃣ Penalize mismatched grain preference
+  if (userWantsGrainFree && hasGrain) {
+    weight = Math.max(weight - 4, 0);
   }
 
   const neededGroups = includeGroups.length;
-  const pct = Math.round((matchedGroups / neededGroups) * 100);
-  return { match: pct, matchedGroups, neededGroups };
+
+  // 🚫 Strict filtering: if not all groups matched, drop it entirely
+  if (matchedGroups < neededGroups) {
+    return { match: 0, sortScore: 0, matchedGroups, neededGroups };
+  }
+
+  // ✅ Full match → 100% display
+  const weightedScore = 100;
+  const coveragePct = 100;
+
+  return { match: coveragePct, sortScore: weightedScore, matchedGroups, neededGroups };
 }
 
-/* ========= labels ========= */
+
+/* ========= helpers ========= */
 function yesNoLabel(val) {
   if (val === true) return "Yes";
   if (val === false) return "No";
   return "—";
-}
-function lifeStageLabel(v) {
-  return v ? String(v) : "—";
 }
 function proteinPresenceLabel(p) {
   const has = Array.isArray(p?.protein_sources) && p.protein_sources.length > 0;
   return has ? "Yes" : "No";
 }
 
-/* ========= rendering ========= */
-function renderMeta(total, shown, labelIncludes, labelExcludes) {
-  const countEl = $("#countLabel");
-  if (countEl) countEl.textContent = `${shown}/${total} shown`;
+/* ========= popup ========= */
+function openIngredientsPopup(product) {
+  const existing = document.querySelector(".ingredients-popup");
+  if (existing) existing.remove();
 
-  const filtersEl = $("#filtersLabel");
-  if (filtersEl) {
-    const inc = [...(labelIncludes || [])].join(", ");
-    const exc = [...(labelExcludes || [])].join(", ");
-    filtersEl.textContent = (inc || exc) ? `includes: [${inc}]  excludes: [${exc}]` : "";
-  }
+  let ingredientsText = product.ingredients_list || "No ingredients listed.";
+  ingredientsText = ingredientsText
+    .split(/[;,\n]+/)
+    .map(x => x.trim().replace(/_/g, " "))
+    .filter(Boolean)
+    .join(", ");
+
+  const overlay = document.createElement("div");
+  overlay.className = "ingredients-popup";
+  overlay.innerHTML = `
+    <div class="popup-content">
+      <h2>${product.name}</h2>
+      <p class="brand">${product.brand}</p>
+      <div class="ingredients-body">${ingredientsText}</div>
+      <button class="close-popup">Close</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  overlay.querySelector(".close-popup").addEventListener("click", () => overlay.remove());
+  overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.remove(); });
 }
 
-function makeBadge(k, v, tooltip = "") {
-  const b = document.createElement("div");
-  b.className = "badge";
-  b.innerHTML = `<span class="k">${k}</span><span class="v">${v}</span>`;
-  if (tooltip) {
-    b.classList.add("has-tooltip");
-    b.setAttribute("data-tooltip", tooltip);
-  }
-  return b;
-}
-
+/* ========= render cards ========= */
 function makeCard(p, res) {
-  const { match, matchedGroups, neededGroups } = res;
-
+  const { match } = res;
   const card = document.createElement("article");
   card.className = "card";
 
-  const img = document.createElement("img");
-  img.alt = `${p.name} image`;
-  img.src = p.image || "";
-  card.appendChild(img);
-
-  const body = document.createElement("div");
-  body.className = "body";
-
-  const title = document.createElement("div");
-  title.className = "title";
-  title.textContent = p.name;
-  body.appendChild(title);
+  const header = document.createElement("div");
+  header.className = "header";
 
   const brand = document.createElement("div");
   brand.className = "brand";
@@ -278,46 +299,83 @@ function makeCard(p, res) {
   a.rel = "noopener";
   a.textContent = p.brand || "—";
   brand.appendChild(a);
-  body.appendChild(brand);
+  header.appendChild(brand);
+
+  const title = document.createElement("div");
+  title.className = "title";
+  const shortName = p.name.split(" ").slice(0, 3).join(" ");
+  title.textContent = shortName;
+  title.classList.add("has-title-tooltip");
+  title.setAttribute("data-title-tooltip", p.name);
+  header.appendChild(title);
+  card.appendChild(header);
+
+  const content = document.createElement("div");
+  content.className = "content";
+  const img = document.createElement("img");
+  img.alt = `${p.name} image`;
+  img.src = p.image || "";
+  content.appendChild(img);
 
   const badges = document.createElement("div");
   badges.className = "badges";
 
-  // Tooltip for match explains coverage
-  const matchTip = neededGroups > 0
-    ? `Matched ${matchedGroups} of ${neededGroups} search terms`
-    : `No active filters`;
-  badges.appendChild(makeBadge("Match", `${match}%`, matchTip));
+  const matchBadge = document.createElement("div");
+  matchBadge.className = "badge match";
+  matchBadge.textContent = `Match ${match}%`;
+  const matchTip = res.neededGroups > 0
+    ? `Matched ${res.matchedGroups} of ${res.neededGroups} search terms`
+    : "No active filters";
+  matchBadge.classList.add("has-badge-tooltip");
+  matchBadge.setAttribute("data-badge-tooltip", matchTip);
+  badges.appendChild(matchBadge);
 
-  // Tooltip for protein sources (shown on hover; your CSS positions it on top)
-  const proteinSources = (p.protein_sources || []).join(", ");
-  const proteinTooltip = proteinSources ? `Sources: ${proteinSources}` : "";
-  badges.appendChild(makeBadge("Protein", proteinPresenceLabel(p), proteinTooltip));
+  const proteinBadge = document.createElement("div");
+  proteinBadge.className = "badge";
+  proteinBadge.textContent = `Protein`;
+  if (Array.isArray(p.protein_sources) && p.protein_sources.length > 0) {
+    const sources = p.protein_sources.map(src => src.replace(/_/g, " ")).join(", ");
+    proteinBadge.classList.add("has-badge-tooltip");
+    proteinBadge.setAttribute("data-badge-tooltip", sources);
+  }
+  badges.appendChild(proteinBadge);
 
-  badges.appendChild(makeBadge("Grains", yesNoLabel(p.contains_grain)));
-  badges.appendChild(makeBadge("Life", lifeStageLabel(p.life_stage)));
+  const grainsBadge = document.createElement("div");
+  grainsBadge.className = "badge";
+  grainsBadge.textContent = `Grains: ${yesNoLabel(p.contains_grain)}`;
+  badges.appendChild(grainsBadge);
 
-  body.appendChild(badges);
-  card.appendChild(body);
+  content.appendChild(badges);
+  card.appendChild(content);
+
+  const ingBtn = document.createElement("button");
+  ingBtn.className = "pf-ingredients-btn";
+  ingBtn.textContent = "Ingredients";
+  ingBtn.addEventListener("click", () => openIngredientsPopup(p));
+  card.appendChild(ingBtn);
+
   return card;
+}
+
+/* ========= render main ========= */
+function renderMeta(total, shown, labelIncludes, labelExcludes) {
+  const countEl = $("#countLabel");
+  if (countEl) countEl.textContent = `${shown}/${total} shown`;
+  const filtersEl = $("#filtersLabel");
+  if (filtersEl) {
+    const inc = [...(labelIncludes || [])].join(", ");
+    const exc = [...(labelExcludes || [])].join(", ");
+    filtersEl.textContent = (inc || exc) ? `includes: [${inc}]  excludes: [${exc}]` : "";
+  }
 }
 
 function render(products, includeGroups, excludes, labelIncludes, labelExcludes) {
   const container = $("#results");
   container.innerHTML = "";
-
-  const scored = products.map((p) => {
-    const res = computeMatch(p, includeGroups, excludes);
-    return { p, res };
-  });
-
-  // Show:
-  // - If no includes: show all non-excluded (100% by definition)
-  // - If includes: show only items with match > 0 (partial matches allowed), sort by match desc
+  const scored = products.map((p) => ({ p, res: computeMatch(p, includeGroups, excludes) }));
   const visible = scored
     .filter(({ res }) => (includeGroups.length === 0 ? res.match > 0 : res.match > 0))
-    .sort((a, b) => (b.res.match - a.res.match) || a.p.name.localeCompare(b.p.name));
-
+    .sort((a, b) => b.res.sortScore - a.res.sortScore || a.p.name.localeCompare(b.p.name));
   renderMeta(products.length, visible.length, labelIncludes, labelExcludes);
   visible.forEach(({ p, res }) => container.appendChild(makeCard(p, res)));
 }
@@ -326,26 +384,29 @@ function render(products, includeGroups, excludes, labelIncludes, labelExcludes)
 (async function init() {
   const results = $("#results");
   results?.setAttribute("aria-busy", "true");
-
   let products = [];
+
   try {
     const res = await fetch(DATA_URL, { cache: "no-store" });
     if (!res.ok) throw new Error(`Failed to load ${DATA_URL}: ${res.status}`);
     products = await res.json();
   } catch (err) {
     console.error(err);
-    if (results) results.innerHTML = `<p class="muted">Could not load data. Check <code>${DATA_URL}</code>.</p>`;
+    if (results)
+      results.innerHTML = `<p class="muted">Could not load data. Check <code>${DATA_URL}</code>.</p>`;
     return;
   } finally {
     results?.setAttribute("aria-busy", "false");
   }
 
   const input = $("#query");
+  const fetchBtn = $("#fetchBtn");
+  const clearBtn = $("#clearBtn");
 
-  // initial render (no filters)
+  // Initial render
   render(products, [], new Set(), new Set(), new Set());
 
-  // debounce typing
+  // Typing search
   let t;
   input.addEventListener("input", () => {
     clearTimeout(t);
@@ -354,4 +415,19 @@ function render(products, includeGroups, excludes, labelIncludes, labelExcludes)
       render(products, includeGroups, excludes, labelIncludes, labelExcludes);
     }, 150);
   });
+
+  // Fetch button — triggers search immediately
+  fetchBtn.addEventListener("click", () => {
+    const { includeGroups, excludes, labelIncludes, labelExcludes } = parseQuery(input.value);
+    render(products, includeGroups, excludes, labelIncludes, labelExcludes);
+  });
+
+  // Clear button — resets everything
+  clearBtn.addEventListener("click", () => {
+    input.value = "";
+    render(products, [], new Set(), new Set(), new Set());
+  });
+
+  
 })();
+
