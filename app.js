@@ -561,8 +561,9 @@ const makeCard = (product, result) => {
     onClick: openProteinInfoPopup,
   });
   const grainsTooltip = "Grain content as reported by the manufacturer.";
-  const grainsBadge = makeBadge(`Grains: ${yesNoLabel(product.contains_grain)}`, {
-    tooltip: grainsTooltip,
+  const grainsLabel = yesNoLabel(product.contains_grain);
+  const grainsBadge = makeBadge(`Grains: ${grainsLabel}`, {
+    tooltip: grainsLabel === "Yes" ? grainsTooltip : undefined,
     onClick: openGrainsInfoPopup,
   });
 
