@@ -414,9 +414,7 @@ const makeCard = (product, result) => {
   const badges = create("div", { className: "badges" });
 
   const matchValue = Number.isFinite(result.match) ? Math.round(result.match) : result.match;
-  const matchTooltip = result.neededGroups
-    ? `Matched ${result.matchedGroups} of ${result.neededGroups} search terms`
-    : "No active filters";
+  const matchTooltip = "Compatibility based on include/exclude filters";
   const matchBadge = makeBadge(`${matchValue}% Match`, { tooltip: matchTooltip, className: "match" });
   if (result.tier) matchBadge.dataset.matchTier = result.tier;
 
