@@ -217,7 +217,7 @@ h1 {
 /* ===== Content Section ===== */
 .content {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto max-content;
   gap: 20px;
   align-items: flex-start;
   overflow: visible;
@@ -232,7 +232,7 @@ h1 {
 }
 
 .card img {
-  width: 128px;
+  width: 160px;
   aspect-ratio: 3 / 4;
   height: auto;
   border-radius: 20px;
