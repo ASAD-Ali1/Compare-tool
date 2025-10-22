@@ -349,7 +349,7 @@ const yesNoLabel = (value) => (value === true ? "Yes" : value === false ? "No" :
 /* ========= popup ========= */
 const removeExistingPopups = () =>
   document
-    .querySelectorAll(".ingredients-popup, .match-info-popup")
+    .querySelectorAll(".ingredients-popup, .match-info-popup, .protein-info-popup")
     .forEach((el) => el.remove());
 
 const openIngredientsPopup = (product) => {
@@ -417,12 +417,63 @@ const openMatchInfoPopup = () => {
   overlay.addEventListener("click", (event) => event.target === overlay && overlay.remove());
 };
 
+const openProteinInfoPopup = () => {
+  removeExistingPopups();
+
+  const overlay = create("div", { className: "protein-info-popup" });
+  overlay.innerHTML = `
+    <div class="popup-content">
+      <button class="popup-close-icon" type="button" aria-label="Close">&times;</button>
+      <h2>Protein %</h2>
+      <div class="protein-info-body">
+        <section>
+          <h3>Quick summary</h3>
+          <p><strong>Label crude protein (as-fed)</strong>: shows how much, not where it comes from.</p>
+        </section>
+        <section>
+          <h3>How to read it</h3>
+          <ul>
+            <li>Typical dry kibble: ~24–32%</li>
+            <li>Higher-protein kibble: ~34–40%</li>
+            <li>Fresh/wet foods read lower as-fed (more water)</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Allergies &amp; protein</h3>
+          <p>Dogs usually react to specific proteins (e.g., chicken, beef, dairy, egg)—not to “protein %.” If you suspect allergy, discuss a novel or hydrolyzed protein elimination diet with your vet.</p>
+        </section>
+        <section>
+          <h3>Learn more</h3>
+          <ul class="protein-info-links">
+            <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4710035/" target="_blank" rel="noopener">BMC Vet Research — Common food allergen sources in dogs and cats</a></li>
+            <li><a href="https://pubmed.ncbi.nlm.nih.gov/28854915/" target="_blank" rel="noopener">PubMed — Diagnosing adverse food reactions: elimination diet with provocation is the gold standard</a></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  `;
+
+  document.body.append(overlay);
+  $(".popup-close-icon", overlay)?.addEventListener("click", () => overlay.remove());
+  overlay.addEventListener("click", (event) => event.target === overlay && overlay.remove());
+};
+
 /* ========= render cards ========= */
-const makeBadge = (text, { tooltip, className = "" } = {}) => {
-  const badge = create("div", { className: `badge ${className}`.trim(), textContent: text });
+const makeBadge = (text, { tooltip, className = "", onClick } = {}) => {
+  const tag = onClick ? "button" : "div";
+  const options = {
+    className: `badge ${className}`.trim(),
+    textContent: text,
+  };
+  if (onClick) options.type = "button";
+  const badge = create(tag, options);
   if (tooltip) {
     badge.classList.add("has-badge-tooltip");
     badge.dataset.badgeTooltip = tooltip;
+  }
+  if (typeof onClick === "function") {
+    badge.classList.add("is-clickable-badge");
+    badge.addEventListener("click", onClick);
   }
   return badge;
 };
@@ -466,7 +517,11 @@ const makeCard = (product, result) => {
   if (result.tier) matchBadge.dataset.matchTier = result.tier;
 
   const proteinTooltip = "Protein analysis (crude protein) reported by the manufacturer.";
-  const proteinBadge = makeBadge("Protein", { tooltip: proteinTooltip });
+  const proteinBadge = makeBadge("Protein %", {
+    tooltip: proteinTooltip,
+    className: "protein-badge",
+    onClick: openProteinInfoPopup,
+  });
   const grainsBadge = makeBadge(`Grains: ${yesNoLabel(product.contains_grain)}`);
 
   badges.append(matchBadge, proteinBadge, grainsBadge);
@@ -545,6 +600,7 @@ const render = (products, includeGroups, excludes, labelIncludes, labelExcludes)
   const fetchBtn = $("#fetchBtn");
   const clearBtn = $("#clearBtn");
   const matchInfoBtn = $("#matchInfoBtn");
+  const proteinInfoBtn = $("#proteinInfoBtn");
 
   const runSearch = () => {
     const { includeGroups, excludes, labelIncludes, labelExcludes } = parseQuery(input.value);
@@ -564,5 +620,6 @@ const render = (products, includeGroups, excludes, labelIncludes, labelExcludes)
     render(products, [], new Set(), new Set(), new Set());
   });
   matchInfoBtn?.addEventListener("click", openMatchInfoPopup);
+  proteinInfoBtn?.addEventListener("click", openProteinInfoPopup);
 })();
 
