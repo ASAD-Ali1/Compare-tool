@@ -160,6 +160,148 @@ function hasTokenExclude(tokenSet, tok) {
   return false;
 }
 
+const PROTEIN_DESCRIPTOR_PREFIXES = [
+  "deboned_",
+  "roasted_",
+  "smoke_flavored_",
+  "freeze_dried_",
+  "air_dried_",
+  "oven_baked_",
+  "wild_caught_",
+  "farm_raised_",
+  "free_range_",
+  "cage_free_",
+  "real_",
+  "fresh_",
+  "raw_",
+  "ground_",
+  "dried_",
+];
+
+const PROTEIN_SUFFIX_FORMS = [
+  { suffix: "_meal", form: "meal" },
+  { suffix: "_meals", form: "meal" },
+  { suffix: "_fat", form: "fat" },
+  { suffix: "_oil", form: "fat" },
+  { suffix: "_tallow", form: "fat" },
+  { suffix: "_grease", form: "fat" },
+  { suffix: "_product", form: "other" },
+  { suffix: "_products", form: "other" },
+  { suffix: "_liver", form: "other" },
+  { suffix: "_heart", form: "other" },
+  { suffix: "_kidney", form: "other" },
+  { suffix: "_lung", form: "other" },
+  { suffix: "_tripe", form: "other" },
+  { suffix: "_giblets", form: "other" },
+  { suffix: "_plasma", form: "other" },
+  { suffix: "_egg", form: "other" },
+  { suffix: "_eggs", form: "other" },
+  { suffix: "_whites", form: "other" },
+  { suffix: "_breast", form: "other" },
+  { suffix: "_and_bone", form: "other" },
+];
+
+function stripProteinPrefix(name) {
+  let value = name;
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const prefix of PROTEIN_DESCRIPTOR_PREFIXES) {
+      if (value.startsWith(prefix)) {
+        value = value.slice(prefix.length);
+        changed = true;
+        break;
+      }
+    }
+  }
+  return value;
+}
+
+function parseProteinSource(raw) {
+  let norm = normalizeToken(raw);
+  if (!norm) return null;
+  norm = stripProteinPrefix(norm);
+
+  let form = "pure";
+  for (const { suffix, form: f } of PROTEIN_SUFFIX_FORMS) {
+    if (norm.endsWith(suffix)) {
+      norm = norm.slice(0, -suffix.length);
+      form = f;
+      break;
+    }
+  }
+
+  if (!norm) {
+    norm = normalizeToken(raw);
+  }
+
+  return {
+    base: norm,
+    form,
+    mixed: norm.includes("_and_") || norm.includes("_with_") || norm.includes("_plus_"),
+  };
+}
+
+function evaluateProteinPurity(proteinSources) {
+  const parsed = (proteinSources || [])
+    .map(parseProteinSource)
+    .filter(Boolean);
+
+  if (parsed.length === 0) {
+    return { percent: 0, tier: "none" };
+  }
+
+  const byBase = new Map();
+  let anyMixed = false;
+  for (const item of parsed) {
+    if (!byBase.has(item.base)) {
+      byBase.set(item.base, { forms: new Set(), count: 0 });
+    }
+    const stats = byBase.get(item.base);
+    stats.forms.add(item.form);
+    stats.count += 1;
+    if (item.mixed) anyMixed = true;
+  }
+
+  const baseEntries = [...byBase.entries()].sort((a, b) => b[1].count - a[1].count);
+  const primary = baseEntries[0];
+  const primaryForms = new Set(primary ? [...primary[1].forms] : []);
+  const otherBases = baseEntries.slice(1);
+  const otherBaseHasNonFat = otherBases.some(([, stats]) => {
+    for (const f of stats.forms) {
+      if (f !== "fat") return true;
+    }
+    return false;
+  });
+  const otherBaseExists = otherBases.length > 0;
+  const primaryOnlyPure = primaryForms.size === 1 && primaryForms.has("pure");
+  const primaryOnlyPureOrMeal = [...primaryForms].every((f) => f === "pure" || f === "meal");
+  const primaryHasFat = primaryForms.has("fat");
+  const primaryHasOther = [...primaryForms].some((f) => f === "other");
+
+  let percent = 75;
+  let tier = "mixed";
+
+  if (anyMixed || otherBaseHasNonFat) {
+    percent = 75;
+    tier = "mixed";
+  } else if (!otherBaseExists && primaryOnlyPure) {
+    percent = 100;
+    tier = "pure";
+  } else if (!otherBaseExists && primaryOnlyPureOrMeal && !primaryHasFat && !primaryHasOther) {
+    percent = 93;
+    tier = "meal";
+  } else if (
+    (!otherBaseExists && (primaryHasFat || primaryHasOther)) ||
+    (otherBaseExists && !otherBaseHasNonFat)
+  ) {
+    percent = 85;
+    tier = "fat";
+  }
+
+  return { percent, tier };
+}
+
 function computeMatch(product, includeGroups, excludes) {
   const T = productTokenSet(product);
 
@@ -168,10 +310,6 @@ function computeMatch(product, includeGroups, excludes) {
     if (hasTokenExclude(T, ex)) {
       return { match: 0, sortScore: 0, matchedGroups: 0, neededGroups: includeGroups.length };
     }
-  }
-
-  if (includeGroups.length === 0) {
-    return { match: 100, sortScore: 100, matchedGroups: 0, neededGroups: 0 };
   }
 
   let matchedGroups = 0;
@@ -236,11 +374,10 @@ function computeMatch(product, includeGroups, excludes) {
     return { match: 0, sortScore: 0, matchedGroups, neededGroups };
   }
 
-  // ✅ Full match → 100% display
-  const weightedScore = 100;
-  const coveragePct = 100;
+  const { percent: coveragePct, tier } = evaluateProteinPurity(product.protein_sources || []);
+  const weightedScore = weight * 5 + coveragePct;
 
-  return { match: coveragePct, sortScore: weightedScore, matchedGroups, neededGroups };
+  return { match: coveragePct, sortScore: weightedScore, matchedGroups, neededGroups, tier };
 }
 
 
@@ -322,12 +459,16 @@ function makeCard(p, res) {
 
   const matchBadge = document.createElement("div");
   matchBadge.className = "badge match";
-  matchBadge.textContent = `Match ${match}%`;
+  const matchValue = Number.isFinite(match) ? Math.round(match) : match;
+  matchBadge.textContent = `${matchValue}% Match`;
   const matchTip = res.neededGroups > 0
     ? `Matched ${res.matchedGroups} of ${res.neededGroups} search terms`
     : "No active filters";
   matchBadge.classList.add("has-badge-tooltip");
   matchBadge.setAttribute("data-badge-tooltip", matchTip);
+  if (res.tier) {
+    matchBadge.setAttribute("data-match-tier", res.tier);
+  }
   badges.appendChild(matchBadge);
 
   const proteinBadge = document.createElement("div");
