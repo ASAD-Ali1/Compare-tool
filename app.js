@@ -201,6 +201,13 @@ const PROTEIN_SUFFIX_FORMS = [
   { suffix: "_and_bone", form: "other" },
 ];
 
+const PROTEIN_FORM_WEIGHTS = {
+  pure: 1,
+  meal: 0.82,
+  fat: 0.65,
+  other: 0.55,
+};
+
 function stripProteinPrefix(name) {
   let value = name;
   let changed = true;
@@ -240,6 +247,88 @@ function parseProteinSource(raw) {
     form,
     mixed: norm.includes("_and_") || norm.includes("_with_") || norm.includes("_plus_"),
   };
+}
+
+function normalizeIngredientList(product) {
+  return String(product.ingredients_list || "")
+    .split(/[;,\n]+/)
+    .map((x) => normalizeToken(x))
+    .filter(Boolean);
+}
+
+function scoreProteinMatch(tok, proteinDetails) {
+  if (!tok || proteinDetails.length === 0) {
+    return { score: 0, raw: 0 };
+  }
+
+  let raw = 0;
+  for (const detail of proteinDetails) {
+    const baseWeight = PROTEIN_FORM_WEIGHTS[detail.form] || 0.5;
+    const weight = detail.mixed ? baseWeight * 0.85 : baseWeight;
+
+    if (detail.base === tok) {
+      raw += weight;
+    } else if (detail.base.startsWith(tok) || tok.startsWith(detail.base)) {
+      raw += weight * 0.7;
+    } else if (detail.base.includes(tok) || tok.includes(detail.base)) {
+      raw += weight * 0.5;
+    }
+  }
+
+  return { score: Math.min(1, raw), raw };
+}
+
+function scoreIngredientMatch(tok, ingredients) {
+  if (!tok || ingredients.length === 0) {
+    return 0;
+  }
+
+  let best = 0;
+  for (const ing of ingredients) {
+    if (!ing) continue;
+    if (ing === tok) {
+      best = Math.max(best, 0.75);
+      continue;
+    }
+
+    if (ing.startsWith(tok + "_") || tok.startsWith(ing + "_")) {
+      best = Math.max(best, 0.65);
+      continue;
+    }
+
+    if (ing.includes(tok) || tok.includes(ing)) {
+      best = Math.max(best, 0.55);
+      continue;
+    }
+
+    const parts = explodeSlug(ing);
+    if (parts.some((part) => part === tok)) {
+      best = Math.max(best, 0.55);
+      continue;
+    }
+
+    if (parts.some((part) => part.startsWith(tok) || tok.startsWith(part))) {
+      best = Math.max(best, 0.45);
+    }
+  }
+
+  return best;
+}
+
+function scoreGenericToken(tok, tokenSet) {
+  if (!tok) return 0;
+  if (tokenSet.has(tok)) return 0.6;
+
+  let best = 0;
+  for (const t of tokenSet) {
+    if (t === tok) return 0.6;
+    if (t.startsWith(tok + "_") || tok.startsWith(t + "_")) {
+      best = Math.max(best, 0.5);
+    } else if (t.includes(tok) || tok.includes(t)) {
+      best = Math.max(best, 0.4);
+    }
+  }
+  return best;
 }
 
 function evaluateProteinPurity(proteinSources) {
@@ -305,79 +394,85 @@ function evaluateProteinPurity(proteinSources) {
 function computeMatch(product, includeGroups, excludes) {
   const T = productTokenSet(product);
 
-  // 1️⃣ Exclusions
   for (const ex of excludes) {
     if (hasTokenExclude(T, ex)) {
-      return { match: 0, sortScore: 0, matchedGroups: 0, neededGroups: includeGroups.length };
+      return {
+        match: 0,
+        sortScore: 0,
+        matchedGroups: 0,
+        neededGroups: includeGroups.length,
+        show: false,
+      };
     }
   }
 
+  const proteinDetails = (product.protein_sources || []).map(parseProteinSource).filter(Boolean);
+  const ingredients = normalizeIngredientList(product);
+
+  const neededGroups = includeGroups.length;
   let matchedGroups = 0;
-  let weight = 0;
+  let scoreSum = 0;
+  let sortStrength = 0;
 
-  const userWantsGrainFree = includeGroups.some(group =>
-    [...group].some(tok => tok.includes("no_grain") || tok.includes("grainfree") || tok.includes("grain_free"))
-  );
-
-  const proteinTokens = (product.protein_sources || []).map(normalizeToken);
-  const hasGrain = product.contains_grain === true;
-  const grainFree = product.contains_grain === false;
-
-  // 5️⃣ Main logic per include group
   for (const group of includeGroups) {
-    let matched = false;
+    let bestScore = 0;
+    let bestProteinRaw = 0;
 
     for (const g of group) {
       const tok = normalizeToken(g);
+      if (!tok) continue;
 
-      // Protein
-      if (proteinTokens.some(ps => ps.includes(tok))) {
-        matched = true;
-        weight += 4;
-        break;
-      }
+      const proteinRes = scoreProteinMatch(tok, proteinDetails);
+      const ingredientScore = scoreIngredientMatch(tok, ingredients);
+      const genericScore = scoreGenericToken(tok, T);
+      const combined = Math.max(proteinRes.score, ingredientScore, genericScore);
 
-      // Grain-free
-      if ((tok.includes("no_grain") || tok.includes("grainfree") || tok.includes("grain_free")) && grainFree) {
-        matched = true;
-        weight += 3;
-        break;
-      }
-
-      // Grain-positive
-      if (tok.includes("grain") && !tok.includes("no") && hasGrain) {
-        matched = true;
-        weight += 3;
-        break;
-      }
-
-      // Generic
-      if (hasToken(T, tok)) {
-        matched = true;
-        weight += 1;
-        break;
+      if (combined > bestScore) {
+        bestScore = combined;
+        bestProteinRaw = proteinRes.raw;
+      } else if (combined === bestScore) {
+        bestProteinRaw = Math.max(bestProteinRaw, proteinRes.raw);
       }
     }
 
-    if (matched) matchedGroups++;
+    if (bestScore > 0) {
+      matchedGroups += 1;
+      scoreSum += bestScore;
+      sortStrength += bestScore + bestProteinRaw * 0.15;
+    }
   }
 
-  // 6️⃣ Penalize mismatched grain preference
-  if (userWantsGrainFree && hasGrain) {
-    weight = Math.max(weight - 4, 0);
+  if (neededGroups > 0 && matchedGroups < neededGroups) {
+    return {
+      match: 0,
+      sortScore: 0,
+      matchedGroups,
+      neededGroups,
+      show: false,
+    };
   }
 
-  const neededGroups = includeGroups.length;
-
-  // 🚫 Strict filtering: if not all groups matched, drop it entirely
-  if (matchedGroups < neededGroups) {
-    return { match: 0, sortScore: 0, matchedGroups, neededGroups };
+  if (neededGroups === 0) {
+    return {
+      match: 0,
+      sortScore: 0,
+      matchedGroups: 0,
+      neededGroups: 0,
+      show: true,
+    };
   }
 
-  const { percent: coveragePct, tier } = evaluateProteinPurity(product.protein_sources || []);
-  const weightedScore = weight * 5 + coveragePct;
+  const averageScore = scoreSum / neededGroups;
+  const matchPercent = Math.round(averageScore * 100);
+  const sortScore = matchPercent + sortStrength;
 
-  return { match: coveragePct, sortScore: weightedScore, matchedGroups, neededGroups, tier };
+  return {
+    match: matchPercent,
+    sortScore,
+    matchedGroups,
+    neededGroups,
+    show: true,
+  };
 }
 
 
@@ -501,7 +596,9 @@ function makeCard(p, res) {
 /* ========= render main ========= */
 function renderMeta(total, shown, labelIncludes, labelExcludes) {
   const countEl = $("#countLabel");
-  if (countEl) countEl.textContent = `${shown}/${total} shown`;
+  if (countEl) {
+    countEl.textContent = total === 0 && shown === 0 ? "" : `${shown}/${total} shown`;
+  }
   const filtersEl = $("#filtersLabel");
   if (filtersEl) {
     const inc = [...(labelIncludes || [])].join(", ");
@@ -513,12 +610,28 @@ function renderMeta(total, shown, labelIncludes, labelExcludes) {
 function render(products, includeGroups, excludes, labelIncludes, labelExcludes) {
   const container = $("#results");
   container.innerHTML = "";
+
+  const hasQuery = includeGroups.length > 0 || excludes.size > 0;
+  if (!hasQuery) {
+    container.innerHTML = '<p class="muted instructions">start typing to see matches</p>';
+    renderMeta(0, 0, labelIncludes, labelExcludes);
+    return;
+  }
+
   const scored = products.map((p) => ({ p, res: computeMatch(p, includeGroups, excludes) }));
-  const visible = scored
-    .filter(({ res }) => (includeGroups.length === 0 ? res.match > 0 : res.match > 0))
+  const filtered = scored
+    .filter(({ res }) => res.show !== false)
     .sort((a, b) => b.res.sortScore - a.res.sortScore || a.p.name.localeCompare(b.p.name));
-  renderMeta(products.length, visible.length, labelIncludes, labelExcludes);
-  visible.forEach(({ p, res }) => container.appendChild(makeCard(p, res)));
+  const limited = filtered.slice(0, 6);
+
+  renderMeta(filtered.length, limited.length, labelIncludes, labelExcludes);
+
+  if (limited.length === 0) {
+    container.innerHTML = '<p class="muted">No matches found.</p>';
+    return;
+  }
+
+  limited.forEach(({ p, res }) => container.appendChild(makeCard(p, res)));
 }
 
 /* ========= init ========= */
