@@ -7,36 +7,37 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main>
-    <h1 class="app-title">HereRicky — Compare</h1>
+  <div class="compare-app-root" data-compare-app-root>
+    <main class="compare-app">
+      <h1 class="compare-app__title">HereRicky — Compare</h1>
 
-    <div class="search-bar">
-      <input
-        id="query"
-        type="text"
-        placeholder="Search ingredients (e.g., chicken, beef, no grain)"
-      />
-      <button id="fetchBtn">Fetch</button>
-      <button id="clearBtn">Clear</button>
-    </div>
-
-
-    <!-- optional helper labels your JS can update -->
-    <div id="meta">
-      <div class="meta-labels">
-        <span id="countLabel"></span>
-        <span id="filtersLabel"></span>
+      <div class="compare-search">
+        <input
+          type="text"
+          placeholder="Search ingredients (e.g., chicken, beef, no grain)"
+          data-compare-query
+        />
+        <button type="button" data-compare-fetch>Fetch</button>
+        <button type="button" data-compare-clear>Clear</button>
       </div>
-      <div class="meta-actions">
-        <button id="proteinInfoBtn" class="meta-info-btn protein-info-btn" type="button">Protein %</button>
-        <button id="matchInfoBtn" class="meta-info-btn match-info-btn" type="button">Match %</button>
-        <button id="grainsInfoBtn" class="meta-info-btn grains-info-btn" type="button">Grains</button>
-      </div>
-    </div>
 
-    <!-- cards will be inserted here by app.js -->
-    <div id="results"></div>
-  </main>
+      <!-- optional helper labels your JS can update -->
+      <div class="compare-meta">
+        <div class="compare-meta__labels">
+          <span data-compare-count></span>
+          <span data-compare-filters></span>
+        </div>
+        <div class="compare-meta__actions">
+          <button class="compare-meta__info-btn" data-compare-protein-info type="button">Protein %</button>
+          <button class="compare-meta__info-btn" data-compare-match-info type="button">Match %</button>
+          <button class="compare-meta__info-btn" data-compare-grains-info type="button">Grains</button>
+        </div>
+      </div>
+
+      <!-- cards will be inserted here by app.js -->
+      <div class="compare-results" data-compare-results></div>
+    </main>
+  </div>
 
   <script src="app.js"></script>
 </body>
