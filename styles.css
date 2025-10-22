@@ -58,6 +58,27 @@ main {
   flex-wrap: wrap;
 }
 
+.match-info-btn {
+  margin-left: auto;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(37, 99, 235, 0.35);
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--accent-strong);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), transform var(--transition), box-shadow var(--transition);
+  flex-shrink: 0;
+}
+
+.match-info-btn:hover {
+  background: rgba(37, 99, 235, 0.14);
+  color: #0b3aa5;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.18);
+}
+
 /* ===== Header ===== */
 h1 {
   font-size: clamp(1.9rem, 2vw + 1.2rem, 2.5rem);
@@ -300,7 +321,8 @@ h1 {
 }
 
 /* ===== Popup ===== */
-.ingredients-popup {
+.ingredients-popup,
+.match-info-popup {
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.55);
@@ -312,7 +334,8 @@ h1 {
   z-index: 10000;
 }
 
-.ingredients-popup .popup-content {
+.ingredients-popup .popup-content,
+.match-info-popup .popup-content {
   background: var(--surface);
   border-radius: calc(var(--radius) + 4px);
   max-width: 720px;
@@ -320,21 +343,25 @@ h1 {
   padding: 36px;
   box-shadow: 0 30px 60px rgba(15, 23, 42, 0.25);
   animation: fadeInUp 0.25s ease-out;
+  position: relative;
 }
 
-.ingredients-popup h2 {
+.ingredients-popup h2,
+.match-info-popup h2 {
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 6px;
 }
 
-.ingredients-popup .brand {
+.ingredients-popup .brand,
+.match-info-popup .brand {
   font-size: 15px;
   color: var(--muted);
   margin-bottom: 16px;
 }
 
-.ingredients-popup .ingredients-body {
+.ingredients-popup .ingredients-body,
+.match-info-popup .ingredients-body {
   font-size: 15px;
   line-height: 1.7;
   color: #334155;
@@ -357,6 +384,66 @@ h1 {
   color: #fff;
   cursor: pointer;
   transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+}
+
+.match-info-popup .match-info-body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  font-size: 15px;
+  color: #1f2937;
+}
+
+.match-info-popup .match-info-body h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.match-info-popup .match-info-body p {
+  margin: 0;
+  line-height: 1.7;
+}
+
+.match-info-popup ul {
+  margin: 0;
+  padding-left: 20px;
+  line-height: 1.8;
+}
+
+.match-info-popup .learn-more-link {
+  font-weight: 600;
+  color: var(--accent-strong);
+  text-decoration: none;
+}
+
+.match-info-popup .learn-more-link:hover {
+  text-decoration: underline;
+}
+
+.popup-close-icon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(148, 163, 184, 0.2);
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+
+.popup-close-icon:hover {
+  background: rgba(148, 163, 184, 0.32);
+  color: #0f172a;
+  transform: scale(1.05);
 }
 
 .ingredients-popup .close-popup:hover {
