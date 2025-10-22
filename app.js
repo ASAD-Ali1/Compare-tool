@@ -280,8 +280,40 @@ function evaluateProteinPurity(proteinSources) {
   return { percent: 75, tier: "mixed" };
 }
 
+const ingredientTokens = (product) => {
+  const tokens = [];
+
+  const addToken = (value) => {
+    const normalized = normalizeToken(value);
+    if (!normalized) return;
+    tokens.push(normalized);
+  };
+
+  String(product.ingredients_list || "")
+    .split(/[;,\n]+/)
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .forEach((item) => addToken(item));
+
+  (product.protein_sources || []).forEach((source) => addToken(source));
+
+  return tokens;
+};
+
+const countTokenMatches = (tokenList, rawToken) => {
+  const token = normalizeToken(rawToken);
+  if (!token) return 0;
+
+  return tokenList.reduce((total, value) => {
+    if (value === token) return total + 1;
+    if (!token.includes("_") && value.split("_").includes(token)) return total + 1;
+    return total;
+  }, 0);
+};
+
 const computeMatch = (product, includeGroups, excludes) => {
   const tokens = productTokenSet(product);
+  const frequencyTokens = ingredientTokens(product);
 
   for (const ex of excludes) {
     if (hasTokenExclude(tokens, ex)) {
@@ -296,7 +328,18 @@ const computeMatch = (product, includeGroups, excludes) => {
     return { match: 0, sortScore: 0, matchedGroups, neededGroups, show: false };
 
   const match = neededGroups === 0 ? 0 : Math.round((matchedGroups / neededGroups) * 100);
-  return { match, sortScore: match, matchedGroups, neededGroups, show: true };
+
+  const frequencyScore = includeGroups.reduce((score, group) => {
+    let groupCount = 0;
+    group.forEach((token) => {
+      groupCount = Math.max(groupCount, countTokenMatches(frequencyTokens, token));
+    });
+    return score + groupCount;
+  }, 0);
+
+  const sortScore = match * 1000 + frequencyScore;
+
+  return { match, sortScore, matchedGroups, neededGroups, show: true };
 };
 
 
