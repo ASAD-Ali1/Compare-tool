@@ -400,7 +400,17 @@ const makeCard = (product, result) => {
   title.dataset.titleTooltip = product.name;
 
   const content = create("div", { className: "content" });
+  const destination = product.product_url || product.brand_url || "";
+  const imageLink = create("a", {
+    className: "card-image-link",
+    href: destination || "#",
+  });
+  if (destination) {
+    imageLink.target = "_blank";
+    imageLink.rel = "noopener";
+  }
   const img = create("img", { src: product.image || "", alt: `${product.name} image` });
+  imageLink.append(img);
   const badges = create("div", { className: "badges" });
 
   const matchValue = Number.isFinite(result.match) ? Math.round(result.match) : result.match;
@@ -415,7 +425,7 @@ const makeCard = (product, result) => {
   const grainsBadge = makeBadge(`Grains: ${yesNoLabel(product.contains_grain)}`);
 
   badges.append(matchBadge, proteinBadge, grainsBadge);
-  content.append(img, badges);
+  content.append(imageLink, badges);
 
   const button = create("button", { className: "pf-ingredients-btn", textContent: "Ingredients" });
   button.addEventListener("click", () => openIngredientsPopup(product));
