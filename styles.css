@@ -393,19 +393,6 @@ h1 {
   background: rgba(148, 163, 184, 0.08);
 }
 
-.ingredients-popup .close-popup {
-  width: 100%;
-  padding: 12px;
-  margin-top: 20px;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  background: var(--accent);
-  color: #fff;
-  cursor: pointer;
-  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
-}
-
 .match-info-popup .match-info-body {
   display: flex;
   flex-direction: column;
@@ -597,12 +584,6 @@ h1 {
   .protein-info-popup .popup-content {
     width: min(520px, 96vw);
   }
-}
-
-.ingredients-popup .close-popup:hover {
-  background: var(--accent-strong);
-  transform: translateY(-1px);
-  box-shadow: 0 15px 32px rgba(29, 78, 216, 0.28);
 }
 
 /* ===== UNIVERSAL TOOLTIP FIX (Final Polished Version) ===== */

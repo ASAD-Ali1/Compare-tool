@@ -366,14 +366,14 @@ const openIngredientsPopup = (product) => {
   const overlay = create("div", { className: "ingredients-popup" });
   overlay.innerHTML = `
     <div class="popup-content">
+      <button class="popup-close-icon" type="button" aria-label="Close">&times;</button>
       <h2>${product.name}</h2>
       <p class="brand">${product.brand}</p>
       <div class="ingredients-body">${ingredientsText}</div>
-      <button class="close-popup">Close</button>
     </div>
   `;
   document.body.append(overlay);
-  $(".close-popup", overlay)?.addEventListener("click", () => overlay.remove());
+  $(".popup-close-icon", overlay)?.addEventListener("click", () => overlay.remove());
   overlay.addEventListener("click", (event) => event.target === overlay && overlay.remove());
 };
 
