@@ -4,7 +4,6 @@
 const DATA_URL = "data/products.json";
 
 /* ========= tiny DOM helpers ========= */
-const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const create = (tag, options = {}) =>
   Object.assign(document.createElement(tag), options);
 
@@ -373,7 +372,7 @@ const openIngredientsPopup = (product) => {
     </div>
   `;
   document.body.append(overlay);
-  $(".popup-close-icon", overlay)?.addEventListener("click", () => overlay.remove());
+  overlay.querySelector(".popup-close-icon")?.addEventListener("click", () => overlay.remove());
   overlay.addEventListener("click", (event) => event.target === overlay && overlay.remove());
 };
 
@@ -415,7 +414,7 @@ const openMatchInfoPopup = () => {
   `;
 
   document.body.append(overlay);
-  $(".popup-close-icon", overlay)?.addEventListener("click", () => overlay.remove());
+  overlay.querySelector(".popup-close-icon")?.addEventListener("click", () => overlay.remove());
   overlay.addEventListener("click", (event) => event.target === overlay && overlay.remove());
 };
 
@@ -456,7 +455,7 @@ const openProteinInfoPopup = () => {
   `;
 
   document.body.append(overlay);
-  $(".popup-close-icon", overlay)?.addEventListener("click", () => overlay.remove());
+  overlay.querySelector(".popup-close-icon")?.addEventListener("click", () => overlay.remove());
   overlay.addEventListener("click", (event) => event.target === overlay && overlay.remove());
 };
 
@@ -489,7 +488,7 @@ const openGrainsInfoPopup = () => {
   `;
 
   document.body.append(overlay);
-  $(".popup-close-icon", overlay)?.addEventListener("click", () => overlay.remove());
+  overlay.querySelector(".popup-close-icon")?.addEventListener("click", () => overlay.remove());
   overlay.addEventListener("click", (event) => event.target === overlay && overlay.remove());
 };
 
@@ -497,45 +496,45 @@ const openGrainsInfoPopup = () => {
 const makeBadge = (text, { tooltip, className = "", onClick } = {}) => {
   const tag = onClick ? "button" : "div";
   const options = {
-    className: `badge ${className}`.trim(),
+    className: ["compare-badge", className].filter(Boolean).join(" "),
     textContent: text,
   };
   if (onClick) options.type = "button";
   const badge = create(tag, options);
   if (tooltip) {
-    badge.classList.add("has-badge-tooltip");
+    badge.classList.add("compare-has-badge-tooltip");
     badge.dataset.badgeTooltip = tooltip;
   }
   if (typeof onClick === "function") {
-    badge.classList.add("is-clickable-badge");
+    badge.classList.add("is-clickable");
     badge.addEventListener("click", onClick);
   }
   return badge;
 };
 
 const makeCard = (product, result) => {
-  const card = create("article", { className: "card" });
+  const card = create("article", { className: "compare-card" });
 
-  const header = create("div", { className: "header" });
+  const header = create("div", { className: "compare-card__header" });
+  const brandWrapper = create("div", { className: "compare-card__brand" });
   const brandLink = create("a", {
     href: product.brand_url || "#",
     target: "_blank",
     rel: "noopener",
     textContent: product.brand || "—",
   });
-  header.append(create("div", { className: "brand" }), create("div", { className: "title" }));
-  $(".brand", header).append(brandLink);
-
-  const title = $(".title", header);
+  brandWrapper.append(brandLink);
+  const title = create("div", { className: "compare-card__title" });
   const shortName = product.name.split(" ").slice(0, 3).join(" ");
   title.textContent = shortName;
-  title.classList.add("has-title-tooltip");
+  title.classList.add("compare-has-title-tooltip");
   title.dataset.titleTooltip = product.name;
+  header.append(brandWrapper, title);
 
-  const content = create("div", { className: "content" });
+  const content = create("div", { className: "compare-card__content" });
   const destination = product.product_url || product.brand_url || "";
   const imageLink = create("a", {
-    className: "card-image-link",
+    className: "compare-card__image-link",
     href: destination || "#",
   });
   if (destination) {
@@ -544,17 +543,17 @@ const makeCard = (product, result) => {
   }
   const img = create("img", { src: product.image || "", alt: `${product.name} image` });
   imageLink.append(img);
-  const badges = create("div", { className: "badges" });
+  const badges = create("div", { className: "compare-card__badges" });
 
   const matchValue = Number.isFinite(result.match) ? Math.round(result.match) : result.match;
   const matchTooltip = "Compatibility based on include/exclude filters";
-  const matchBadge = makeBadge(`${matchValue}% Match`, { tooltip: matchTooltip, className: "match" });
+  const matchBadge = makeBadge(`${matchValue}% Match`, { tooltip: matchTooltip, className: "compare-badge--match" });
   if (result.tier) matchBadge.dataset.matchTier = result.tier;
 
   const proteinTooltip = "Protein analysis (crude protein) reported by the manufacturer.";
   const proteinBadge = makeBadge("Protein %", {
     tooltip: proteinTooltip,
-    className: "protein-badge",
+    className: "compare-badge--protein",
     onClick: openProteinInfoPopup,
   });
   const grainsBadge = makeBadge(`Grains: ${yesNoLabel(product.contains_grain)}`);
@@ -562,7 +561,7 @@ const makeCard = (product, result) => {
   badges.append(matchBadge, proteinBadge, grainsBadge);
   content.append(imageLink, badges);
 
-  const button = create("button", { className: "pf-ingredients-btn", textContent: "Ingredients" });
+  const button = create("button", { className: "compare-ingredients-btn", textContent: "Ingredients" });
   button.addEventListener("click", () => openIngredientsPopup(product));
 
   card.append(header, content, button);
@@ -570,25 +569,26 @@ const makeCard = (product, result) => {
 };
 
 /* ========= render main ========= */
-const renderMeta = (total, shown, labelIncludes, labelExcludes) => {
-  const countEl = $("#countLabel");
+const renderMeta = (root, total, shown, labelIncludes, labelExcludes) => {
+  const countEl = root.querySelector("[data-compare-count]");
   if (countEl) countEl.textContent = total === 0 && shown === 0 ? "" : `${shown}/${total} shown`;
 
-  const filtersEl = $("#filtersLabel");
+  const filtersEl = root.querySelector("[data-compare-filters]");
   if (!filtersEl) return;
   const includes = [...(labelIncludes || [])].join(", ");
-  const excludes = [...(labelExcludes || [])].join(", ");
-  filtersEl.textContent = includes || excludes ? `includes: [${includes}]  excludes: [${excludes}]` : "";
+  const excludesText = [...(labelExcludes || [])].join(", ");
+  filtersEl.textContent = includes || excludesText ? `includes: [${includes}]  excludes: [${excludesText}]` : "";
 };
 
-const render = (products, includeGroups, excludes, labelIncludes, labelExcludes) => {
-  const container = $("#results");
+const render = (root, products, includeGroups, excludes, labelIncludes, labelExcludes) => {
+  const container = root.querySelector("[data-compare-results]");
+  if (!container) return;
   container.innerHTML = "";
 
   const hasQuery = includeGroups.length || excludes.size;
   if (!hasQuery) {
-    container.innerHTML = '<p class="muted instructions">Start typing to see matches.</p>';
-    renderMeta(0, 0, labelIncludes, labelExcludes);
+    container.innerHTML = '<p class="compare-muted compare-instructions">Start typing to see matches.</p>';
+    renderMeta(root, 0, 0, labelIncludes, labelExcludes);
     return;
   }
 
@@ -603,10 +603,10 @@ const render = (products, includeGroups, excludes, labelIncludes, labelExcludes)
 
   const limited = matches.slice(0, 6);
 
-  renderMeta(matches.length, limited.length, labelIncludes, labelExcludes);
+  renderMeta(root, matches.length, limited.length, labelIncludes, labelExcludes);
 
   if (!limited.length) {
-    container.innerHTML = '<p class="muted">No matches found.</p>';
+    container.innerHTML = '<p class="compare-muted">No matches found.</p>';
     return;
   }
 
@@ -615,7 +615,10 @@ const render = (products, includeGroups, excludes, labelIncludes, labelExcludes)
 
 /* ========= init ========= */
 (async function init() {
-  const results = $("#results");
+  const root = document.querySelector("[data-compare-app-root]");
+  if (!root) return;
+
+  const results = root.querySelector("[data-compare-results]");
   results?.setAttribute("aria-busy", "true");
 
   let products = [];
@@ -625,35 +628,37 @@ const render = (products, includeGroups, excludes, labelIncludes, labelExcludes)
     products = await response.json();
   } catch (error) {
     console.error(error);
-    results.innerHTML = `<p class="muted">Could not load data. Check <code>${DATA_URL}</code>.</p>`;
+    if (results)
+      results.innerHTML = `<p class="compare-muted">Could not load data. Check <code>${DATA_URL}</code>.</p>`;
     return;
   } finally {
     results?.setAttribute("aria-busy", "false");
   }
 
-  const input = $("#query");
-  const fetchBtn = $("#fetchBtn");
-  const clearBtn = $("#clearBtn");
-  const matchInfoBtn = $("#matchInfoBtn");
-  const proteinInfoBtn = $("#proteinInfoBtn");
-  const grainsInfoBtn = $("#grainsInfoBtn");
+  const input = root.querySelector("[data-compare-query]");
+  const fetchBtn = root.querySelector("[data-compare-fetch]");
+  const clearBtn = root.querySelector("[data-compare-clear]");
+  const matchInfoBtn = root.querySelector("[data-compare-match-info]");
+  const proteinInfoBtn = root.querySelector("[data-compare-protein-info]");
+  const grainsInfoBtn = root.querySelector("[data-compare-grains-info]");
 
   const runSearch = () => {
-    const { includeGroups, excludes, labelIncludes, labelExcludes } = parseQuery(input.value);
-    render(products, includeGroups, excludes, labelIncludes, labelExcludes);
+    const value = input?.value ?? "";
+    const { includeGroups, excludes, labelIncludes, labelExcludes } = parseQuery(value);
+    render(root, products, includeGroups, excludes, labelIncludes, labelExcludes);
   };
 
-  render(products, [], new Set(), new Set(), new Set());
+  render(root, products, [], new Set(), new Set(), new Set());
 
   let debounceTimer;
-  input.addEventListener("input", () => {
+  input?.addEventListener("input", () => {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(runSearch, 150);
   });
-  fetchBtn.addEventListener("click", runSearch);
-  clearBtn.addEventListener("click", () => {
-    input.value = "";
-    render(products, [], new Set(), new Set(), new Set());
+  fetchBtn?.addEventListener("click", runSearch);
+  clearBtn?.addEventListener("click", () => {
+    if (input) input.value = "";
+    render(root, products, [], new Set(), new Set(), new Set());
   });
   matchInfoBtn?.addEventListener("click", openMatchInfoPopup);
   proteinInfoBtn?.addEventListener("click", openProteinInfoPopup);
