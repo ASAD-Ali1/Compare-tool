@@ -347,8 +347,13 @@ const computeMatch = (product, includeGroups, excludes) => {
 const yesNoLabel = (value) => (value === true ? "Yes" : value === false ? "No" : "—");
 
 /* ========= popup ========= */
+const removeExistingPopups = () =>
+  document
+    .querySelectorAll(".ingredients-popup, .match-info-popup")
+    .forEach((el) => el.remove());
+
 const openIngredientsPopup = (product) => {
-  $(".ingredients-popup")?.remove();
+  removeExistingPopups();
 
   const ingredientsText = (product.ingredients_list || "No ingredients listed.")
     .split(/[;,\n]+/)
@@ -367,6 +372,48 @@ const openIngredientsPopup = (product) => {
   `;
   document.body.append(overlay);
   $(".close-popup", overlay)?.addEventListener("click", () => overlay.remove());
+  overlay.addEventListener("click", (event) => event.target === overlay && overlay.remove());
+};
+
+const openMatchInfoPopup = () => {
+  removeExistingPopups();
+
+  const overlay = create("div", { className: "match-info-popup" });
+  overlay.innerHTML = `
+    <div class="popup-content">
+      <button class="popup-close-icon" type="button" aria-label="Close">&times;</button>
+      <h2>Match %</h2>
+      <div class="match-info-body">
+        <div>
+          <h3>Quick summary</h3>
+          <p>A fit score based on your include / exclude terms vs. this product’s ingredient list.</p>
+        </div>
+        <div>
+          <h3>What it means</h3>
+          <ul>
+            <li><strong>&ge;90%</strong>: strong fit</li>
+            <li><strong>70–89%</strong>: partial fit</li>
+            <li><strong>&lt;70%</strong>: weak fit</li>
+          </ul>
+        </div>
+        <div>
+          <h3>How it’s calculated (plain English)</h3>
+          <ul>
+            <li>+ points for every included term found</li>
+            <li>– points for every excluded term present</li>
+            <li>Normalized to a % (ingredients only; no price or quality judgment)</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Learn more</h3>
+          <a class="learn-more-link" href="https://wsava.org/wp-content/uploads/2021/04/Selecting-a-pet-food-for-your-pet-updated-2021_WSAVA-Global-Nutrition-Toolkit.pdf" target="_blank" rel="noopener">WSAVA — Selecting a Pet Food (PDF)</a>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.append(overlay);
+  $(".popup-close-icon", overlay)?.addEventListener("click", () => overlay.remove());
   overlay.addEventListener("click", (event) => event.target === overlay && overlay.remove());
 };
 
@@ -497,6 +544,7 @@ const render = (products, includeGroups, excludes, labelIncludes, labelExcludes)
   const input = $("#query");
   const fetchBtn = $("#fetchBtn");
   const clearBtn = $("#clearBtn");
+  const matchInfoBtn = $("#matchInfoBtn");
 
   const runSearch = () => {
     const { includeGroups, excludes, labelIncludes, labelExcludes } = parseQuery(input.value);
@@ -515,5 +563,6 @@ const render = (products, includeGroups, excludes, labelIncludes, labelExcludes)
     input.value = "";
     render(products, [], new Set(), new Set(), new Set());
   });
+  matchInfoBtn?.addEventListener("click", openMatchInfoPopup);
 })();
 
