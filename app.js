@@ -547,7 +547,11 @@ const makeCard = (product, result) => {
 
   const matchValue = Number.isFinite(result.match) ? Math.round(result.match) : result.match;
   const matchTooltip = "Compatibility based on include/exclude filters";
-  const matchBadge = makeBadge(`${matchValue}% Match`, { tooltip: matchTooltip, className: "compare-badge--match" });
+  const matchBadge = makeBadge(`${matchValue}% Match`, {
+    tooltip: matchTooltip,
+    className: "compare-badge--match",
+    onClick: openMatchInfoPopup,
+  });
   if (result.tier) matchBadge.dataset.matchTier = result.tier;
 
   const proteinTooltip = "Protein analysis (crude protein) reported by the manufacturer.";
@@ -556,7 +560,11 @@ const makeCard = (product, result) => {
     className: "compare-badge--protein",
     onClick: openProteinInfoPopup,
   });
-  const grainsBadge = makeBadge(`Grains: ${yesNoLabel(product.contains_grain)}`);
+  const grainsTooltip = "Grain content as reported by the manufacturer.";
+  const grainsBadge = makeBadge(`Grains: ${yesNoLabel(product.contains_grain)}`, {
+    tooltip: grainsTooltip,
+    onClick: openGrainsInfoPopup,
+  });
 
   badges.append(matchBadge, proteinBadge, grainsBadge);
   content.append(imageLink, badges);
@@ -638,9 +646,6 @@ const render = (root, products, includeGroups, excludes, labelIncludes, labelExc
   const input = root.querySelector("[data-compare-query]");
   const fetchBtn = root.querySelector("[data-compare-fetch]");
   const clearBtn = root.querySelector("[data-compare-clear]");
-  const matchInfoBtn = root.querySelector("[data-compare-match-info]");
-  const proteinInfoBtn = root.querySelector("[data-compare-protein-info]");
-  const grainsInfoBtn = root.querySelector("[data-compare-grains-info]");
 
   const runSearch = () => {
     const value = input?.value ?? "";
@@ -660,8 +665,5 @@ const render = (root, products, includeGroups, excludes, labelIncludes, labelExc
     if (input) input.value = "";
     render(root, products, [], new Set(), new Set(), new Set());
   });
-  matchInfoBtn?.addEventListener("click", openMatchInfoPopup);
-  proteinInfoBtn?.addEventListener("click", openProteinInfoPopup);
-  grainsInfoBtn?.addEventListener("click", openGrainsInfoPopup);
 })();
 
