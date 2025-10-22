@@ -465,8 +465,8 @@ const makeCard = (product, result) => {
   const matchBadge = makeBadge(`${matchValue}% Match`, { tooltip: matchTooltip, className: "match" });
   if (result.tier) matchBadge.dataset.matchTier = result.tier;
 
-  const proteinSources = (product.protein_sources || []).map((item) => item.replace(/_/g, " ")).join(", ");
-  const proteinBadge = makeBadge("Protein", { tooltip: proteinSources || undefined });
+  const proteinTooltip = "Protein analysis (crude protein) reported by the manufacturer.";
+  const proteinBadge = makeBadge("Protein", { tooltip: proteinTooltip });
   const grainsBadge = makeBadge(`Grains: ${yesNoLabel(product.contains_grain)}`);
 
   badges.append(matchBadge, proteinBadge, grainsBadge);
