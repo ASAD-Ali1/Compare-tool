@@ -362,7 +362,7 @@ const openIngredientsPopup = (product) => {
     .filter(Boolean)
     .join(", ");
 
-  const overlay = create("div", { className: "ingredients-popup" });
+  const overlay = create("div", { className: "compare-popup ingredients-popup" });
   overlay.innerHTML = `
     <div class="popup-content">
       <button class="popup-close-icon" type="button" aria-label="Close">&times;</button>
@@ -379,7 +379,7 @@ const openIngredientsPopup = (product) => {
 const openMatchInfoPopup = () => {
   removeExistingPopups();
 
-  const overlay = create("div", { className: "match-info-popup" });
+  const overlay = create("div", { className: "compare-popup match-info-popup" });
   overlay.innerHTML = `
     <div class="popup-content">
       <button class="popup-close-icon" type="button" aria-label="Close">&times;</button>
@@ -421,7 +421,7 @@ const openMatchInfoPopup = () => {
 const openProteinInfoPopup = () => {
   removeExistingPopups();
 
-  const overlay = create("div", { className: "protein-info-popup" });
+  const overlay = create("div", { className: "compare-popup protein-info-popup" });
   overlay.innerHTML = `
     <div class="popup-content">
       <button class="popup-close-icon" type="button" aria-label="Close">&times;</button>
@@ -462,7 +462,7 @@ const openProteinInfoPopup = () => {
 const openGrainsInfoPopup = () => {
   removeExistingPopups();
 
-  const overlay = create("div", { className: "grains-info-popup" });
+  const overlay = create("div", { className: "compare-popup grains-info-popup" });
   overlay.innerHTML = `
     <div class="popup-content">
       <button class="popup-close-icon" type="button" aria-label="Close">&times;</button>
