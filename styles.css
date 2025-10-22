@@ -335,7 +335,8 @@ h1 {
 /* ===== Popup ===== */
 .ingredients-popup,
 .match-info-popup,
-.protein-info-popup {
+.protein-info-popup,
+.grains-info-popup {
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.55);
@@ -349,7 +350,8 @@ h1 {
 
 .ingredients-popup .popup-content,
 .match-info-popup .popup-content,
-.protein-info-popup .popup-content {
+.protein-info-popup .popup-content,
+.grains-info-popup .popup-content {
   background: var(--surface);
   border-radius: calc(var(--radius) + 4px);
   max-width: 720px;
@@ -362,7 +364,8 @@ h1 {
 
 .ingredients-popup h2,
 .match-info-popup h2,
-.protein-info-popup h2 {
+.protein-info-popup h2,
+.grains-info-popup h2 {
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 6px;
@@ -370,7 +373,8 @@ h1 {
 
 .ingredients-popup .brand,
 .match-info-popup .brand,
-.protein-info-popup .brand {
+.protein-info-popup .brand,
+.grains-info-popup .brand {
   font-size: 15px;
   color: var(--muted);
   margin-bottom: 16px;
@@ -473,6 +477,17 @@ h1 {
   padding: 28px 30px 32px;
 }
 
+.grains-info-popup {
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 32px;
+}
+
+.grains-info-popup .popup-content {
+  width: min(420px, 92vw);
+  padding: 28px 30px 32px;
+}
+
 .protein-info-body {
   display: flex;
   flex-direction: column;
@@ -515,6 +530,45 @@ h1 {
 }
 
 .protein-info-links a:hover {
+  text-decoration: underline;
+}
+
+.grains-info-body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  font-size: 15px;
+  color: #1f2937;
+  line-height: 1.7;
+}
+
+.grains-info-body h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.grains-info-body p {
+  margin: 0;
+}
+
+.grains-info-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.grains-info-links a {
+  font-weight: 600;
+  color: var(--accent-strong);
+  text-decoration: none;
+}
+
+.grains-info-links a:hover {
   text-decoration: underline;
 }
 
