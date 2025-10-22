@@ -349,7 +349,9 @@ const yesNoLabel = (value) => (value === true ? "Yes" : value === false ? "No" :
 /* ========= popup ========= */
 const removeExistingPopups = () =>
   document
-    .querySelectorAll(".ingredients-popup, .match-info-popup, .protein-info-popup")
+    .querySelectorAll(
+      ".ingredients-popup, .match-info-popup, .protein-info-popup, .grains-info-popup"
+    )
     .forEach((el) => el.remove());
 
 const openIngredientsPopup = (product) => {
@@ -447,6 +449,39 @@ const openProteinInfoPopup = () => {
           <ul class="protein-info-links">
             <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4710035/" target="_blank" rel="noopener">BMC Vet Research — Common food allergen sources in dogs and cats</a></li>
             <li><a href="https://pubmed.ncbi.nlm.nih.gov/28854915/" target="_blank" rel="noopener">PubMed — Diagnosing adverse food reactions: elimination diet with provocation is the gold standard</a></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  `;
+
+  document.body.append(overlay);
+  $(".popup-close-icon", overlay)?.addEventListener("click", () => overlay.remove());
+  overlay.addEventListener("click", (event) => event.target === overlay && overlay.remove());
+};
+
+const openGrainsInfoPopup = () => {
+  removeExistingPopups();
+
+  const overlay = create("div", { className: "grains-info-popup" });
+  overlay.innerHTML = `
+    <div class="popup-content">
+      <button class="popup-close-icon" type="button" aria-label="Close">&times;</button>
+      <h2>Grains</h2>
+      <div class="grains-info-body">
+        <section>
+          <h3>Quick summary</h3>
+          <p>Flags whether named grains appear in the ingredient list (e.g., wheat, corn, rice, barley, oats, rye).</p>
+        </section>
+        <section>
+          <h3>Why it matters</h3>
+          <p>Many dogs do fine with grains; a minority have grain sensitivities. “Grain-free” often swaps grains for <strong>legumes or potatoes</strong>&mdash;read labels closely.</p>
+        </section>
+        <section>
+          <h3>Learn more</h3>
+          <ul class="grains-info-links">
+            <li><a href="https://wsava.org/global-guidelines/global-nutrition-guidelines/" target="_blank" rel="noopener">WSAVA — Global Nutrition Guidelines</a></li>
+            <li><a href="https://www.fda.gov/animal-veterinary/outbreaks-and-advisories/fda-investigation-potential-link-between-certain-diets-and-canine-dilated-cardiomyopathy" target="_blank" rel="noopener">FDA CVM — Q&amp;A on diet-associated DCM (ongoing)</a></li>
           </ul>
         </section>
       </div>
@@ -601,6 +636,7 @@ const render = (products, includeGroups, excludes, labelIncludes, labelExcludes)
   const clearBtn = $("#clearBtn");
   const matchInfoBtn = $("#matchInfoBtn");
   const proteinInfoBtn = $("#proteinInfoBtn");
+  const grainsInfoBtn = $("#grainsInfoBtn");
 
   const runSearch = () => {
     const { includeGroups, excludes, labelIncludes, labelExcludes } = parseQuery(input.value);
@@ -621,5 +657,6 @@ const render = (products, includeGroups, excludes, labelIncludes, labelExcludes)
   });
   matchInfoBtn?.addEventListener("click", openMatchInfoPopup);
   proteinInfoBtn?.addEventListener("click", openProteinInfoPopup);
+  grainsInfoBtn?.addEventListener("click", openGrainsInfoPopup);
 })();
 
