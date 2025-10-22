@@ -58,8 +58,20 @@ main {
   flex-wrap: wrap;
 }
 
-.match-info-btn {
+.meta-labels {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.meta-actions {
+  display: flex;
+  gap: 10px;
   margin-left: auto;
+}
+
+.meta-info-btn {
   padding: 8px 18px;
   border-radius: 999px;
   border: 1px solid rgba(37, 99, 235, 0.35);
@@ -72,7 +84,7 @@ main {
   flex-shrink: 0;
 }
 
-.match-info-btn:hover {
+.meta-info-btn:hover {
   background: rgba(37, 99, 235, 0.14);
   color: #0b3aa5;
   transform: translateY(-1px);
@@ -322,7 +334,8 @@ h1 {
 
 /* ===== Popup ===== */
 .ingredients-popup,
-.match-info-popup {
+.match-info-popup,
+.protein-info-popup {
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.55);
@@ -335,7 +348,8 @@ h1 {
 }
 
 .ingredients-popup .popup-content,
-.match-info-popup .popup-content {
+.match-info-popup .popup-content,
+.protein-info-popup .popup-content {
   background: var(--surface);
   border-radius: calc(var(--radius) + 4px);
   max-width: 720px;
@@ -347,14 +361,16 @@ h1 {
 }
 
 .ingredients-popup h2,
-.match-info-popup h2 {
+.match-info-popup h2,
+.protein-info-popup h2 {
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 6px;
 }
 
 .ingredients-popup .brand,
-.match-info-popup .brand {
+.match-info-popup .brand,
+.protein-info-popup .brand {
   font-size: 15px;
   color: var(--muted);
   margin-bottom: 16px;
@@ -444,6 +460,89 @@ h1 {
   background: rgba(148, 163, 184, 0.32);
   color: #0f172a;
   transform: scale(1.05);
+}
+
+.protein-info-popup {
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 32px;
+}
+
+.protein-info-popup .popup-content {
+  width: min(420px, 92vw);
+  padding: 28px 30px 32px;
+}
+
+.protein-info-body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  font-size: 15px;
+  color: #1f2937;
+  line-height: 1.7;
+}
+
+.protein-info-body h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.protein-info-body p {
+  margin: 0;
+}
+
+.protein-info-body ul {
+  margin: 0;
+  padding-left: 20px;
+  line-height: 1.7;
+}
+
+.protein-info-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.protein-info-links a {
+  font-weight: 600;
+  color: var(--accent-strong);
+  text-decoration: none;
+}
+
+.protein-info-links a:hover {
+  text-decoration: underline;
+}
+
+.badge.is-clickable-badge {
+  cursor: pointer;
+  border-color: rgba(37, 99, 235, 0.35);
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.badge.is-clickable-badge:hover {
+  background: rgba(37, 99, 235, 0.14);
+}
+
+.badge.is-clickable-badge:focus-visible {
+  outline: 2px solid rgba(37, 99, 235, 0.6);
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  .protein-info-popup {
+    align-items: stretch;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .protein-info-popup .popup-content {
+    width: min(520px, 96vw);
+  }
 }
 
 .ingredients-popup .close-popup:hover {

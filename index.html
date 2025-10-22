@@ -23,9 +23,14 @@
 
     <!-- optional helper labels your JS can update -->
     <div id="meta">
-      <span id="countLabel"></span>
-      <span id="filtersLabel"></span>
-      <button id="matchInfoBtn" class="match-info-btn" type="button">Match %</button>
+      <div class="meta-labels">
+        <span id="countLabel"></span>
+        <span id="filtersLabel"></span>
+      </div>
+      <div class="meta-actions">
+        <button id="proteinInfoBtn" class="meta-info-btn protein-info-btn" type="button">Protein %</button>
+        <button id="matchInfoBtn" class="meta-info-btn match-info-btn" type="button">Match %</button>
+      </div>
     </div>
 
     <!-- cards will be inserted here by app.js -->
