@@ -305,79 +305,45 @@ function evaluateProteinPurity(proteinSources) {
 function computeMatch(product, includeGroups, excludes) {
   const T = productTokenSet(product);
 
-  // 1️⃣ Exclusions
   for (const ex of excludes) {
     if (hasTokenExclude(T, ex)) {
-      return { match: 0, sortScore: 0, matchedGroups: 0, neededGroups: includeGroups.length };
+      return {
+        match: 0,
+        sortScore: 0,
+        matchedGroups: 0,
+        neededGroups: includeGroups.length,
+        show: false,
+      };
     }
-  }
-
-  let matchedGroups = 0;
-  let weight = 0;
-
-  const userWantsGrainFree = includeGroups.some(group =>
-    [...group].some(tok => tok.includes("no_grain") || tok.includes("grainfree") || tok.includes("grain_free"))
-  );
-
-  const proteinTokens = (product.protein_sources || []).map(normalizeToken);
-  const hasGrain = product.contains_grain === true;
-  const grainFree = product.contains_grain === false;
-
-  // 5️⃣ Main logic per include group
-  for (const group of includeGroups) {
-    let matched = false;
-
-    for (const g of group) {
-      const tok = normalizeToken(g);
-
-      // Protein
-      if (proteinTokens.some(ps => ps.includes(tok))) {
-        matched = true;
-        weight += 4;
-        break;
-      }
-
-      // Grain-free
-      if ((tok.includes("no_grain") || tok.includes("grainfree") || tok.includes("grain_free")) && grainFree) {
-        matched = true;
-        weight += 3;
-        break;
-      }
-
-      // Grain-positive
-      if (tok.includes("grain") && !tok.includes("no") && hasGrain) {
-        matched = true;
-        weight += 3;
-        break;
-      }
-
-      // Generic
-      if (hasToken(T, tok)) {
-        matched = true;
-        weight += 1;
-        break;
-      }
-    }
-
-    if (matched) matchedGroups++;
-  }
-
-  // 6️⃣ Penalize mismatched grain preference
-  if (userWantsGrainFree && hasGrain) {
-    weight = Math.max(weight - 4, 0);
   }
 
   const neededGroups = includeGroups.length;
+  let matchedGroups = 0;
 
-  // 🚫 Strict filtering: if not all groups matched, drop it entirely
-  if (matchedGroups < neededGroups) {
-    return { match: 0, sortScore: 0, matchedGroups, neededGroups };
+  for (const group of includeGroups) {
+    const matched = [...group].some((g) => hasToken(T, normalizeToken(g)));
+    if (matched) matchedGroups += 1;
   }
 
-  const { percent: coveragePct, tier } = evaluateProteinPurity(product.protein_sources || []);
-  const weightedScore = weight * 5 + coveragePct;
+  if (neededGroups > 0 && matchedGroups === 0) {
+    return {
+      match: 0,
+      sortScore: 0,
+      matchedGroups,
+      neededGroups,
+      show: false,
+    };
+  }
 
-  return { match: coveragePct, sortScore: weightedScore, matchedGroups, neededGroups, tier };
+  const matchPercent = neededGroups === 0 ? 0 : Math.round((matchedGroups / neededGroups) * 100);
+
+  return {
+    match: matchPercent,
+    sortScore: matchPercent,
+    matchedGroups,
+    neededGroups,
+    show: true,
+  };
 }
 
 
@@ -501,7 +467,9 @@ function makeCard(p, res) {
 /* ========= render main ========= */
 function renderMeta(total, shown, labelIncludes, labelExcludes) {
   const countEl = $("#countLabel");
-  if (countEl) countEl.textContent = `${shown}/${total} shown`;
+  if (countEl) {
+    countEl.textContent = total === 0 && shown === 0 ? "" : `${shown}/${total} shown`;
+  }
   const filtersEl = $("#filtersLabel");
   if (filtersEl) {
     const inc = [...(labelIncludes || [])].join(", ");
@@ -513,12 +481,28 @@ function renderMeta(total, shown, labelIncludes, labelExcludes) {
 function render(products, includeGroups, excludes, labelIncludes, labelExcludes) {
   const container = $("#results");
   container.innerHTML = "";
+
+  const hasQuery = includeGroups.length > 0 || excludes.size > 0;
+  if (!hasQuery) {
+    container.innerHTML = '<p class="muted instructions">start typing to see matches</p>';
+    renderMeta(0, 0, labelIncludes, labelExcludes);
+    return;
+  }
+
   const scored = products.map((p) => ({ p, res: computeMatch(p, includeGroups, excludes) }));
-  const visible = scored
-    .filter(({ res }) => (includeGroups.length === 0 ? res.match > 0 : res.match > 0))
+  const filtered = scored
+    .filter(({ res }) => res.show !== false)
     .sort((a, b) => b.res.sortScore - a.res.sortScore || a.p.name.localeCompare(b.p.name));
-  renderMeta(products.length, visible.length, labelIncludes, labelExcludes);
-  visible.forEach(({ p, res }) => container.appendChild(makeCard(p, res)));
+  const limited = filtered.slice(0, 6);
+
+  renderMeta(filtered.length, limited.length, labelIncludes, labelExcludes);
+
+  if (limited.length === 0) {
+    container.innerHTML = '<p class="muted">No matches found.</p>';
+    return;
+  }
+
+  limited.forEach(({ p, res }) => container.appendChild(makeCard(p, res)));
 }
 
 /* ========= init ========= */
