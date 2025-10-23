@@ -512,8 +512,22 @@ const makeBadge = (text, { tooltip, className = "", onClick } = {}) => {
   return badge;
 };
 
-const makeCard = (product, result) => {
+const makeCard = (product, result, onRemove) => {
   const card = create("article", { className: "compare-card" });
+
+  const removeButton = create("button", {
+    className: "compare-card__remove",
+    type: "button",
+    textContent: "×",
+    ariaLabel: "Remove product",
+  });
+  removeButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (typeof onRemove === "function") onRemove(product);
+  });
+
+  card.append(removeButton);
 
   const header = create("div", { className: "compare-card__header" });
   const brandWrapper = create("div", { className: "compare-card__brand" });
@@ -589,7 +603,15 @@ const renderMeta = (root, total, shown, labelIncludes, labelExcludes) => {
   filtersEl.textContent = includes || excludesText ? `includes: [${includes}]  excludes: [${excludesText}]` : "";
 };
 
-const render = (root, products, includeGroups, excludes, labelIncludes, labelExcludes) => {
+const render = (
+  root,
+  products,
+  includeGroups,
+  excludes,
+  labelIncludes,
+  labelExcludes,
+  { removedProductIds = new Set(), onRemove } = {}
+) => {
   const container = root.querySelector("[data-compare-results]");
   if (!container) return;
   container.innerHTML = "";
@@ -610,16 +632,20 @@ const render = (root, products, includeGroups, excludes, labelIncludes, labelExc
         a.product.name.localeCompare(b.product.name)
     );
 
-  const limited = matches.slice(0, 6);
+  const visibleMatches = matches.filter(({ product }) => !removedProductIds.has(product.id));
 
-  renderMeta(root, matches.length, limited.length, labelIncludes, labelExcludes);
+  const limited = visibleMatches.slice(0, 6);
+
+  renderMeta(root, visibleMatches.length, limited.length, labelIncludes, labelExcludes);
 
   if (!limited.length) {
     container.innerHTML = '<p class="compare-muted">No matches found.</p>';
     return;
   }
 
-  limited.forEach(({ product, result }) => container.append(makeCard(product, result)));
+  limited.forEach(({ product, result }) =>
+    container.append(makeCard(product, result, onRemove))
+  );
 };
 
 /* ========= init ========= */
@@ -648,13 +674,43 @@ const render = (root, products, includeGroups, excludes, labelIncludes, labelExc
   const fetchBtn = root.querySelector("[data-compare-fetch]");
   const clearBtn = root.querySelector("[data-compare-clear]");
 
+  const removedProductIds = new Set();
+  let currentState = {
+    includeGroups: [],
+    excludes: new Set(),
+    labelIncludes: new Set(),
+    labelExcludes: new Set(),
+  };
+
+  function renderWithCurrentState() {
+    render(
+      root,
+      products,
+      currentState.includeGroups,
+      currentState.excludes,
+      currentState.labelIncludes,
+      currentState.labelExcludes,
+      {
+        removedProductIds,
+        onRemove: handleRemoveProduct,
+      }
+    );
+  }
+
+  function handleRemoveProduct(product) {
+    if (!product || !product.id) return;
+    removedProductIds.add(product.id);
+    renderWithCurrentState();
+  }
+
   const runSearch = () => {
     const value = input?.value ?? "";
     const { includeGroups, excludes, labelIncludes, labelExcludes } = parseQuery(value);
-    render(root, products, includeGroups, excludes, labelIncludes, labelExcludes);
+    currentState = { includeGroups, excludes, labelIncludes, labelExcludes };
+    renderWithCurrentState();
   };
 
-  render(root, products, [], new Set(), new Set(), new Set());
+  renderWithCurrentState();
 
   let debounceTimer;
   input?.addEventListener("input", () => {
@@ -664,7 +720,14 @@ const render = (root, products, includeGroups, excludes, labelIncludes, labelExc
   fetchBtn?.addEventListener("click", runSearch);
   clearBtn?.addEventListener("click", () => {
     if (input) input.value = "";
-    render(root, products, [], new Set(), new Set(), new Set());
+    removedProductIds.clear();
+    currentState = {
+      includeGroups: [],
+      excludes: new Set(),
+      labelIncludes: new Set(),
+      labelExcludes: new Set(),
+    };
+    renderWithCurrentState();
   });
 })();
 
