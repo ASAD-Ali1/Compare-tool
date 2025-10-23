@@ -367,13 +367,13 @@
 }
 
 .compare-badge--match {
-  background: var(--compare-accent);
-  border-color: var(--compare-accent-strong);
+  background: #605f96;
+  border-color: #4b4a80;
   color: #ffffff;
 }
 
 .compare-badge--match:hover {
-  background: var(--compare-accent-strong);
+  background: #4b4a80;
   color: #ffffff;
 }
 
