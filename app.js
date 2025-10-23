@@ -385,30 +385,30 @@ const openMatchInfoPopup = () => {
       <button class="popup-close-icon" type="button" aria-label="Close">&times;</button>
       <h2>Match %</h2>
       <div class="match-info-body">
-        <div>
+        <section>
           <h3>Quick summary</h3>
           <p>A fit score based on your include / exclude terms vs. this product’s ingredient list.</p>
-        </div>
-        <div>
+        </section>
+        <section>
           <h3>What it means</h3>
           <ul>
             <li><strong>&ge;90%</strong>: strong fit</li>
             <li><strong>70–89%</strong>: partial fit</li>
             <li><strong>&lt;70%</strong>: weak fit</li>
           </ul>
-        </div>
-        <div>
+        </section>
+        <section>
           <h3>How it’s calculated (plain English)</h3>
           <ul>
             <li>+ points for every included term found</li>
             <li>– points for every excluded term present</li>
             <li>Normalized to a % (ingredients only; no price or quality judgment)</li>
           </ul>
-        </div>
-        <div>
+        </section>
+        <section>
           <h3>Learn more</h3>
           <a class="learn-more-link" href="https://wsava.org/wp-content/uploads/2021/04/Selecting-a-pet-food-for-your-pet-updated-2021_WSAVA-Global-Nutrition-Toolkit.pdf" target="_blank" rel="noopener">WSAVA — Selecting a Pet Food (PDF)</a>
-        </div>
+        </section>
       </div>
     </div>
   `;
