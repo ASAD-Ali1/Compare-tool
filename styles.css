@@ -433,6 +433,10 @@
   color: var(--compare-accent-strong);
 }
 
+.match-info-popup h3 {
+  margin-bottom: 2px;
+}
+
 .compare-popup .brand {
   font-size: 15px;
   color: var(--compare-muted);
