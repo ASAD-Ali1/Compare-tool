@@ -198,17 +198,50 @@
 
 /* ===== Card ===== */
 .compare-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 18px;
   background: var(--compare-surface);
   border: 1px solid var(--compare-border);
   border-radius: var(--compare-radius);
-  padding: 26px 24px;
+  padding: 32px 24px 26px;
   box-shadow: 0 10px 26px rgba(15, 23, 42, 0.05);
   transition: transform var(--compare-transition), box-shadow var(--compare-transition);
   overflow: visible !important;
   min-height: 360px;
+}
+
+.compare-card__remove {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--compare-muted);
+  font-size: 20px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform var(--compare-transition), box-shadow var(--compare-transition), background var(--compare-transition),
+    color var(--compare-transition);
+}
+
+.compare-card__remove:hover {
+  background: #f1f5f9;
+  color: var(--compare-text);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(15, 23, 42, 0.12);
+}
+
+.compare-card__remove:focus-visible {
+  outline: 2px solid var(--compare-accent);
+  outline-offset: 2px;
 }
 
 .compare-card:hover {
