@@ -440,16 +440,6 @@
   line-height: 1.7;
 }
 
-.match-info-popup .learn-more-link {
-  font-weight: 600;
-  color: var(--compare-accent-strong);
-  text-decoration: none;
-}
-
-.match-info-popup .learn-more-link:hover {
-  text-decoration: underline;
-}
-
 .popup-close-icon {
   position: absolute;
   top: 10px;
@@ -502,15 +492,7 @@
   gap: 10px;
 }
 
-.protein-info-links a {
-  font-weight: 600;
-  color: var(--compare-accent-strong);
-  text-decoration: none;
-}
 
-.protein-info-links a:hover {
-  text-decoration: underline;
-}
 
 .grains-info-body {
   display: flex;
@@ -534,14 +516,31 @@
   gap: 10px;
 }
 
+.match-info-popup .learn-more-link,
+.protein-info-links a,
 .grains-info-links a {
+  display: inline-flex;
+  align-items: center;
   font-weight: 600;
   color: var(--compare-accent-strong);
   text-decoration: none;
+  padding: 10px 14px;
+  border-radius: var(--compare-button-radius);
+  border: 1px solid rgba(37, 99, 235, 0.25);
+  background: rgba(37, 99, 235, 0.08);
+  transition: background var(--compare-transition),
+    border-color var(--compare-transition),
+    color var(--compare-transition),
+    transform var(--compare-transition);
 }
 
+.match-info-popup .learn-more-link:hover,
+.protein-info-links a:hover,
 .grains-info-links a:hover {
-  text-decoration: underline;
+  background: rgba(37, 99, 235, 0.16);
+  border-color: rgba(37, 99, 235, 0.35);
+  text-decoration: none;
+  transform: translateY(-1px);
 }
 
 .compare-badge.is-clickable {
