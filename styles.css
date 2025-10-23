@@ -9,6 +9,7 @@
   --compare-border: #e5e7eb;
   --compare-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
   --compare-radius: 14px;
+  --compare-button-radius: 12px;
   --compare-transition: 0.2s ease;
 }
 
@@ -73,7 +74,7 @@
 
 .compare-meta__info-btn {
   padding: 8px 18px;
-  border-radius: 999px;
+  border-radius: var(--compare-button-radius);
   border: 1px solid rgba(37, 99, 235, 0.35);
   background: rgba(37, 99, 235, 0.08);
   color: var(--compare-accent-strong);
@@ -142,7 +143,7 @@
 }
 
 .compare-search button {
-  border-radius: 999px;
+  border-radius: var(--compare-button-radius);
   padding: 12px 26px;
   font-size: 15px;
   font-weight: 600;
@@ -332,7 +333,7 @@
   width: 100%;
   background: #eef2ff;
   border: 1px solid rgba(99, 102, 241, 0.35);
-  border-radius: 12px;
+  border-radius: var(--compare-button-radius);
   padding: 10px 14px;
   font-weight: 600;
   font-size: 13px;
@@ -457,7 +458,7 @@
   border: none;
   width: 34px;
   height: 34px;
-  border-radius: 50%;
+  border-radius: var(--compare-button-radius);
   font-size: 20px;
   font-weight: 600;
   color: #475569;
