@@ -372,6 +372,14 @@
   color: #ffffff;
 }
 
+.compare-badge--match.is-clickable,
+.compare-badge--match.is-clickable:hover,
+.compare-badge--match.is-clickable:focus-visible {
+  background: #605f96;
+  border-color: #605f96;
+  color: #ffffff;
+}
+
 .compare-badge--match:hover {
   background: #4b4a80;
   color: #ffffff;
