@@ -97,7 +97,7 @@
   font-size: clamp(2.4rem, 2vw + 2rem, 3.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
-  text-align: center;
+  text-align: left;
   color: var(--compare-text);
   line-height: 1.1;
 }
@@ -107,7 +107,7 @@
   display: block;
   width: clamp(140px, 16vw, 220px);
   height: 4px;
-  margin: clamp(12px, 2vw, 18px) auto 0;
+  margin: clamp(12px, 2vw, 18px) 0 0;
   border-radius: 999px;
   background: linear-gradient(90deg, rgba(37, 99, 235, 0.25), rgba(37, 99, 235, 0));
 }
