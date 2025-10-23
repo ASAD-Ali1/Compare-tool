@@ -606,16 +606,24 @@
 
 .compare-badge.is-clickable {
   cursor: pointer;
+}
+
+.compare-badge.is-clickable:not(.compare-badge--match) {
   border-color: rgba(96, 95, 150, 0.4);
   background: rgba(96, 95, 150, 0.12);
 }
 
-.compare-badge.is-clickable:hover {
+.compare-badge.is-clickable:not(.compare-badge--match):hover {
   background: rgba(96, 95, 150, 0.2);
 }
 
-.compare-badge.is-clickable:focus-visible {
+.compare-badge.is-clickable:not(.compare-badge--match):focus-visible {
   outline: 2px solid rgba(96, 95, 150, 0.6);
+  outline-offset: 2px;
+}
+
+.compare-badge--match.is-clickable:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
   outline-offset: 2px;
 }
 
