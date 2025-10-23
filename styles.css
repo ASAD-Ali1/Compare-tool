@@ -367,9 +367,14 @@
 }
 
 .compare-badge--match {
-  background: rgba(96, 95, 150, 0.12);
-  border-color: rgba(96, 95, 150, 0.4);
-  color: var(--compare-accent-strong);
+  background: #605f96;
+  border-color: #4b4a80;
+  color: #ffffff;
+}
+
+.compare-badge--match:hover {
+  background: #4b4a80;
+  color: #ffffff;
 }
 
 .compare-ingredients-btn {
