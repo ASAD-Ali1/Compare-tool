@@ -211,8 +211,19 @@ const productTokenSet = (product) => {
 /* ========= compute match % ========= */
 const hasToken = (tokenSet, token) => {
   if (tokenSet.has(token)) return true;
+
+  if (GRAIN_WITH_TOKENS.has(token)) {
+    return [...GRAIN_WITH_TOKENS].some((value) => tokenSet.has(value));
+  }
+
+  if (GRAIN_FREE_TOKENS.has(token)) {
+    return [...GRAIN_FREE_TOKENS].some((value) => tokenSet.has(value));
+  }
+
   for (const value of tokenSet) {
-    if (value === token || value.startsWith(token + "_") || value.startsWith(token)) return true;
+    if (value === token) return true;
+    if (value.startsWith(`${token}_`)) return true;
+    if (value.startsWith(token)) return true;
   }
   return false;
 };
