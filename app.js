@@ -299,6 +299,62 @@ const ingredientTokens = (product) => {
   return tokens;
 };
 
+const orderedIngredientTokens = (product) => {
+  const ordered = [];
+
+  String(product.ingredients_list || "")
+    .split(/[;,\n]+/)
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .forEach((item) => {
+      const normalized = normalizeToken(item);
+      if (normalized) ordered.push(normalized);
+    });
+
+  (product.protein_sources || []).forEach((source) => {
+    const normalized = normalizeToken(source);
+    if (normalized) ordered.push(normalized);
+  });
+
+  return ordered;
+};
+
+const ingredientTokenMatches = (token, ingredient) => {
+  if (!token || !ingredient) return false;
+  if (ingredient === token) return true;
+  if (ingredient.startsWith(`${token}_`)) return true;
+  if (token.startsWith(`${ingredient}_`)) return true;
+  if (!token.includes("_")) {
+    const parts = ingredient.split("_");
+    if (parts.includes(token)) return true;
+  }
+  return false;
+};
+
+const evaluateIngredientGroupScore = (tokens, orderedIngredients) => {
+  if (!orderedIngredients.length) {
+    return { ingredientMatched: false, ingredientScore: 0, ingredientIndex: null };
+  }
+
+  let bestIndex = null;
+
+  orderedIngredients.forEach((ingredient, index) => {
+    if (bestIndex !== null && index >= bestIndex) return;
+    for (const token of tokens) {
+      if (ingredientTokenMatches(token, ingredient)) {
+        bestIndex = index;
+        return;
+      }
+    }
+  });
+
+  if (bestIndex === null)
+    return { ingredientMatched: false, ingredientScore: 0, ingredientIndex: null };
+
+  const ingredientScore = 1 - bestIndex / orderedIngredients.length;
+  return { ingredientMatched: true, ingredientScore, ingredientIndex: bestIndex };
+};
+
 const countTokenMatches = (tokenList, rawToken) => {
   const token = normalizeToken(rawToken);
   if (!token) return 0;
@@ -313,6 +369,7 @@ const countTokenMatches = (tokenList, rawToken) => {
 const computeMatch = (product, includeGroups, excludes) => {
   const tokens = productTokenSet(product);
   const frequencyTokens = ingredientTokens(product);
+  const orderedIngredients = orderedIngredientTokens(product);
 
   for (const ex of excludes) {
     if (hasTokenExclude(tokens, ex)) {
@@ -321,12 +378,27 @@ const computeMatch = (product, includeGroups, excludes) => {
   }
 
   const neededGroups = includeGroups.length;
-  const matchedGroups = includeGroups.filter((group) => [...group].some((token) => hasToken(tokens, normalizeToken(token)))).length;
+  const groupEvaluations = includeGroups.map((group) => {
+    const normalizedGroupTokens = [...group].map(normalizeToken).filter(Boolean);
+    const matched = normalizedGroupTokens.some((token) => hasToken(tokens, token));
+    const ingredientData = evaluateIngredientGroupScore(normalizedGroupTokens, orderedIngredients);
+    return { matched, ...ingredientData };
+  });
+
+  const matchedGroups = groupEvaluations.filter((group) => group.matched).length;
 
   if (neededGroups > 0 && matchedGroups === 0)
     return { match: 0, sortScore: 0, matchedGroups, neededGroups, show: false };
 
-  const match = neededGroups === 0 ? 0 : Math.round((matchedGroups / neededGroups) * 100);
+  const ingredientMatchedGroups = groupEvaluations.filter((group) => group.ingredientMatched);
+
+  const totalScore = groupEvaluations.reduce((score, group) => {
+    if (!group.matched) return score;
+    if (group.ingredientMatched) return score + group.ingredientScore;
+    return score + 1;
+  }, 0);
+
+  const match = neededGroups === 0 ? 0 : Math.round((totalScore / neededGroups) * 100);
 
   const frequencyScore = includeGroups.reduce((score, group) => {
     let groupCount = 0;
@@ -336,7 +408,12 @@ const computeMatch = (product, includeGroups, excludes) => {
     return score + groupCount;
   }, 0);
 
-  const sortScore = match * 1000 + frequencyScore;
+  const ingredientRankBoost = ingredientMatchedGroups.reduce((boost, group) => {
+    if (group.ingredientIndex === null) return boost;
+    return boost + (orderedIngredients.length - group.ingredientIndex);
+  }, 0);
+
+  const sortScore = match * 1000 + ingredientRankBoost * 10 + frequencyScore;
 
   return { match, sortScore, matchedGroups, neededGroups, show: true };
 };
