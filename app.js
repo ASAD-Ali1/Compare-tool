@@ -32,11 +32,15 @@ const simplePluralVariants = (tok) => {
 const SYNONYMS = {
   grainfree: ["grain_free", "no_grain", "no_grains"],
   "grain-free": ["grain_free", "no_grain", "no_grains"],
-  no_grain: ["grain_free"],
-  no_grains: ["grain_free"],
-  with_grains: ["contains_grain", "grain", "grains"],
+  grain_free: ["grain_free", "no_grain", "no_grains", "grainfree"],
+  no_grain: ["grain_free", "no_grains", "grainfree"],
+  no_grains: ["grain_free", "no_grain", "grainfree"],
+  without_grain: ["grain_free", "no_grain", "no_grains", "grainfree"],
+  without_grains: ["grain_free", "no_grain", "no_grains", "grainfree"],
+  with_grain: ["contains_grain", "grain", "grains", "with_grains"],
+  with_grains: ["contains_grain", "grain", "grains", "with_grain"],
   grains: ["contains_grain", "grain"],
-  grain: ["contains_grain", "grains", "with_grains"],
+  grain: ["contains_grain", "grains", "with_grains", "with_grain"],
   contains_grain: ["contains_grain"],
   protein: ["has_protein", "protein"],
   no_protein: ["no_protein"],
@@ -51,6 +55,16 @@ const expandSynonyms = (tok) => {
   simplePluralVariants(base).forEach((value) => variants.add(value));
   return variants;
 };
+
+const PHRASE_SYNONYM_OVERRIDES = new Set([
+  "grain_free",
+  "no_grain",
+  "no_grains",
+  "with_grain",
+  "with_grains",
+  "without_grain",
+  "without_grains",
+]);
 
 /* ========= Parse user query ========= */
 const emptyParseResult = () => ({
@@ -72,29 +86,63 @@ const parseQuery = (q) => {
   const labelIncludes = new Set();
   const labelExcludes = new Set();
 
-  parts.forEach((raw, index) => {
-    const isExclude = raw.startsWith("-");
-    const base = isExclude ? raw.slice(1) : raw;
-    const group = new Set(expandSynonyms(base));
+  for (let index = 0; index < parts.length; ) {
+    const raw = parts[index];
+    if (!raw) {
+      index += 1;
+      continue;
+    }
 
-    const next = parts[index + 1];
-    if (next && !next.startsWith("-")) {
-      const bigram = normalizeToken(`${base}_${next}`);
-      if (bigram) {
-        group.add(bigram);
-        simplePluralVariants(bigram).forEach((value) => group.add(value));
+    const isExclude = raw.startsWith("-");
+    const baseRaw = isExclude ? raw.slice(1) : raw;
+    const base = normalizeToken(baseRaw);
+    if (!base) {
+      index += 1;
+      continue;
+    }
+
+    const group = new Set();
+    let labelToken = base;
+    let skipNext = false;
+
+    const nextRaw = parts[index + 1];
+    let phraseToken = "";
+    if (nextRaw && !nextRaw.startsWith("-")) {
+      const next = normalizeToken(nextRaw);
+      if (next) {
+        phraseToken = normalizeToken(`${base}_${next}`);
+        if (phraseToken && PHRASE_SYNONYM_OVERRIDES.has(phraseToken)) {
+          skipNext = true;
+          labelToken = phraseToken;
+          expandSynonyms(phraseToken).forEach((token) => group.add(token));
+        }
       }
     }
 
+    if (!skipNext) {
+      expandSynonyms(base).forEach((token) => group.add(token));
+      if (phraseToken) {
+        group.add(phraseToken);
+        simplePluralVariants(phraseToken).forEach((value) => group.add(value));
+      }
+    }
+
+    if (!group.size) {
+      index += skipNext ? 2 : 1;
+      continue;
+    }
+
     const labelTarget = isExclude ? labelExcludes : labelIncludes;
-    labelTarget.add(normalizeToken(base));
+    if (labelToken) labelTarget.add(labelToken);
 
     if (isExclude) {
       group.forEach((token) => excludes.add(token));
     } else {
       includeGroups.push(group);
     }
-  });
+
+    index += skipNext ? 2 : 1;
+  }
 
   return { includeGroups, excludes, labelIncludes, labelExcludes };
 };
