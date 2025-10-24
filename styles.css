@@ -11,6 +11,7 @@
   --compare-radius: 14px;
   --compare-button-radius: 12px;
   --compare-transition: 0.2s ease;
+  --compare-button-height: 44px;
 }
 
 .compare-app-root {
@@ -161,6 +162,7 @@
   border: 1px solid transparent;
   transition: transform var(--compare-transition), box-shadow var(--compare-transition), background var(--compare-transition),
     border-color var(--compare-transition);
+  min-height: var(--compare-button-height);
 }
 
 .compare-search [data-compare-fetch] {
@@ -350,9 +352,13 @@
 
 /* ===== Badges ===== */
 .compare-badge {
-  text-align: center;
-  padding: 10px 14px;
-  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18px;
+  min-height: var(--compare-button-height);
+  border-radius: var(--compare-button-radius);
+  width: 100%;
   font-size: 13px;
   font-weight: 600;
   border: 1px solid var(--compare-border);
@@ -390,7 +396,8 @@
   background: #ecebf8;
   border: 1px solid rgba(96, 95, 150, 0.35);
   border-radius: var(--compare-button-radius);
-  padding: 10px 14px;
+  padding: 0 18px;
+  min-height: var(--compare-button-height);
   font-weight: 600;
   font-size: 13px;
   color: var(--compare-accent-strong);
