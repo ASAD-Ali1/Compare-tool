@@ -48,6 +48,23 @@ const SYNONYMS = {
   totw: ["taste_of_the_wild"],
 };
 
+const GRAIN_WITH_TOKENS = new Set([
+  "contains_grain",
+  "grain",
+  "grains",
+  "with_grain",
+  "with_grains",
+]);
+
+const GRAIN_FREE_TOKENS = new Set([
+  "grain_free",
+  "grainfree",
+  "no_grain",
+  "no_grains",
+  "without_grain",
+  "without_grains",
+]);
+
 const expandSynonyms = (tok) => {
   const base = normalizeToken(tok);
   const variants = new Set([base]);
@@ -428,14 +445,29 @@ const computeMatch = (product, includeGroups, excludes) => {
   const neededGroups = includeGroups.length;
   const groupEvaluations = includeGroups.map((group) => {
     const normalizedGroupTokens = [...group].map(normalizeToken).filter(Boolean);
+    const requirement = normalizedGroupTokens.some((token) => GRAIN_WITH_TOKENS.has(token))
+      ? "with"
+      : normalizedGroupTokens.some((token) => GRAIN_FREE_TOKENS.has(token))
+      ? "without"
+      : null;
     const matched = normalizedGroupTokens.some((token) => hasToken(tokens, token));
     const ingredientData = evaluateIngredientGroupScore(normalizedGroupTokens, orderedIngredients);
-    return { matched, ...ingredientData };
+    return { matched, requirement, ...ingredientData };
   });
 
   const matchedGroups = groupEvaluations.filter((group) => group.matched).length;
 
   if (neededGroups > 0 && matchedGroups === 0)
+    return { match: 0, sortScore: 0, matchedGroups, neededGroups, show: false };
+
+  const requiresGrain = groupEvaluations.some((group) => group.requirement === "with");
+  const requiresGrainFree = groupEvaluations.some((group) => group.requirement === "without");
+
+  if (
+    (requiresGrain && !groupEvaluations.some((group) => group.requirement === "with" && group.matched)) ||
+    (requiresGrainFree &&
+      !groupEvaluations.some((group) => group.requirement === "without" && group.matched))
+  )
     return { match: 0, sortScore: 0, matchedGroups, neededGroups, show: false };
 
   const ingredientMatchedGroups = groupEvaluations.filter((group) => group.ingredientMatched);
