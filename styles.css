@@ -96,12 +96,12 @@
 /* ===== Header ===== */
 .compare-app__title {
   margin: 0;
-  font-size: clamp(2.4rem, 2vw + 2rem, 3.6rem);
+  font-size: clamp(1.75rem, 1.4vw + 1.45rem, 2.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   text-align: left;
   color: var(--compare-text);
-  line-height: 1.1;
+  line-height: 1.2;
 }
 
 .compare-app__logo {
@@ -115,13 +115,7 @@
 }
 
 .compare-app__title::after {
-  content: "";
-  display: block;
-  width: clamp(140px, 16vw, 220px);
-  height: 4px;
-  margin: clamp(12px, 2vw, 18px) 0 0;
-  border-radius: 999px;
-  background: linear-gradient(90deg, rgba(96, 95, 150, 0.35), rgba(96, 95, 150, 0));
+  content: none;
 }
 
 /* ===== Search Bar ===== */
