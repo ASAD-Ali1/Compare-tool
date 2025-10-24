@@ -589,28 +589,21 @@
 .match-info-popup .learn-more-link,
 .protein-info-links a,
 .grains-info-links a {
-  display: inline-flex;
-  align-items: center;
-  font-weight: 600;
-  color: var(--compare-accent-strong);
-  text-decoration: none;
-  padding: 10px 14px;
-  border-radius: var(--compare-button-radius);
-  border: 1px solid rgba(96, 95, 150, 0.3);
-  background: rgba(96, 95, 150, 0.1);
-  transition: background var(--compare-transition),
-    border-color var(--compare-transition),
-    color var(--compare-transition),
-    transform var(--compare-transition);
+  display: inline;
+  font-weight: 500;
+  color: #1d4ed8;
+  text-decoration: underline;
+  padding: 0;
+  border: none;
+  background: transparent;
+  transition: color var(--compare-transition);
 }
 
 .match-info-popup .learn-more-link:hover,
 .protein-info-links a:hover,
 .grains-info-links a:hover {
-  background: rgba(96, 95, 150, 0.18);
-  border-color: rgba(96, 95, 150, 0.45);
-  text-decoration: none;
-  transform: translateY(-1px);
+  color: #1e40af;
+  text-decoration: underline;
 }
 
 .compare-badge.is-clickable {
